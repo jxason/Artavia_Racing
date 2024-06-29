@@ -49,3 +49,9 @@ target/
 
 # Custom exclusions
 dist/
+
+# Ignore build/web, build/WEB-INF, build/classes, build/controller
+build/web/
+build/WEB-INF/
+build/classes/
+build/controller/
