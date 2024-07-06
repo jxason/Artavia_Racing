@@ -12,7 +12,7 @@ public class EjemploGrupal {
     
     public String Test()
     {
-        return "Hola mundo";
+        return "Hola mundo Horacio";
     }
     
 }
