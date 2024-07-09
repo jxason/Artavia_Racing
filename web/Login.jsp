@@ -38,10 +38,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
                     <div class="text-center mt-3">
-                        <a href="#" class="btn btn-link">¿Olvidó su contraseña?</a>
+                        <a id="btnOlvidoContraseña" href="#" class="btn btn-link">¿Olvidó su contraseña?</a>
                     </div>
                     <div class="text-center mt-3">
-                        <a href="#" class="btn btn-link">Registrarse</a>
+                        <a id="btnRegistrarse" href="#" class="btn btn-link">Registrarse</a>
                     </div>
                 </form>
             </div>
