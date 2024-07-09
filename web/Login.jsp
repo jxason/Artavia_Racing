@@ -1,7 +1,8 @@
 <%-- 
     Document   : Login
     Created on : 8 jul 2024, 17:33:24
-    Author     : fidelitas
+    Author     : Andrés Alvarado Matamoeos
+    AR-001 Este pop up se utiliza para inciar sesión al sitio
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -1,7 +1,8 @@
 <%-- 
     Document   : index
-    Created on : 29 jun 2024, 15:11:16
-    Author     : fidelitas
+    Created on : 8 jul 2024, 17:33:24
+    Author     : Andrés Alvarado Matamoeos
+    AR-001 Este pop up se utiliza para indicar el index del sitio
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
