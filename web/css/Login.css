@@ -1,0 +1,267 @@
+/* 
+    AR-001
+    Author     : Andrés Alvarado
+    Este archivo CSS se encarga de darle el diseño al login
+*/
+
+/* custom-bootstrap.css */
+
+/* General */
+body {
+    color: #000; /* Color negro para texto general */
+    background-color: #fff;
+}
+
+a {
+    color: #000 !important; /* Color negro para enlaces normales */
+}
+a:hover,
+a:focus {
+    color: #C1121E !important; /* Color rojo más oscuro al hacer hover */
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #D81324;
+    border-color: #D81324;
+    color: #fff; /* Texto blanco para botones .btn-primary */
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    background-color: #C1121E;
+    border-color: #C1121E;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #D81324;
+}
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #000000 !important;
+}
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+    color: #C1121E !important;
+}
+
+/* Modals */
+.modal-header {
+    background-color: #D81324;
+    color: #fff;
+}
+.modal-content {
+    border-color: #D81324;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: #D81324;
+    box-shadow: 0 0 0 0.2rem rgba(216, 19, 36, 0.25);
+}
+
+/* Alerts */
+.alert-primary {
+    background-color: #D81324;
+    border-color: #D81324;
+    color: #fff;
+}
+
+/* Custom Checkboxes and Radios */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #D81324;
+    border-color: #D81324;
+}
+
+/* Pagination */
+.page-link {
+    color: #D81324;
+}
+.page-link:hover {
+    color: #C1121E;
+}
+.page-item.active .page-link {
+    background-color: #D81324;
+    border-color: #D81324;
+    color: #fff; /* Color de texto para enlaces activos */
+}
+
+/* Progress Bars */
+.progress-bar {
+    background-color: #D81324;
+}
+
+/* Badges */
+.badge-primary {
+    background-color: #D81324;
+}
+
+/* Cards */
+.card-header {
+    background-color: #D81324;
+    color: #fff;
+}
+
+/* Font Awesome Icons */
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+    color: #D81324; /* Color primario para iconos */
+}
+
+/* Otros estilos específicos */
+.text-primary {
+    color: #D81324 !important;
+}
+
+.m-0.text-primary {
+    color: #D81324 !important;
+}
+
+/* Texto normal en negro */
+.nav-item .nav-link {
+    color: #000 !important; /* Color negro para todos los enlaces dentro de nav-item */
+}
+
+/* Clase personalizada */
+.bg-primary {
+    background-color: #D81324 !important; /* Color de fondo para la clase .bg-primary */
+}
+
+/* Estilos para btn btn-primary py-4 px-lg-5 d-none d-lg-block */
+.btn-primary.py-4.px-lg-5.d-none.d-lg-block {
+    color: #fff !important; /* Color de texto blanco para este tipo de botón */
+}
+/* Estilos para .btn-primary.py-3.px-5.animated.slideInDown */
+.btn-primary.py-3.px-5.animated.slideInDown {
+    color: #fff !important; /* Color de texto blanco para este tipo de botón */
+}
+
+
+/* custom-bootstrap.css */
+
+/* Estilos para .service .nav .nav-link.active */
+.service .nav .nav-link.active {
+    background-color: #E0E0E0; /* Fondo rojo para el enlace activo */
+}
+
+/* Estilos para .nav-pills .nav-link.active y .nav-pills .show > .nav-link */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff; /* Texto blanco para enlaces activos */
+    background-color: #E0E0E0; /* Fondo gris que combina con el rojo */
+}
+
+/* Estilos para #loginModalLabel */
+#loginModalLabel {
+    color: #fff; /* Color blanco para el texto */
+}
+
+/* custom-bootstrap.css */
+
+/* Estilos para .btn-link */
+.btn-link {
+    color: #D81324; /* Color rojo para el texto del enlace */
+    text-decoration: underline; /* Subrayado para indicar que es un enlace */
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    color: #C1121E; /* Color más oscuro al hacer hover o en foco */
+    text-decoration: underline; /* Mantener el subrayado en hover o foco */
+}
+
+/* custom-bootstrap.css */
+
+/* custom-bootstrap.css */
+
+/* Estilos para .btn-block */
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* Estilos para .btn-primary */
+.btn-primary {
+    color: #fff; /* Texto blanco para el botón */
+    background-color: #D81324; /* Fondo rojo para el botón */
+    border-color: #D81324; /* Borde rojo para el botón */
+}
+
+/* Estilos para .btn-primary:hover, .btn-primary:focus */
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #C1121E; /* Color más oscuro al hacer hover o en foco */
+    border-color: #C1121E; /* Borde más oscuro al hacer hover o en foco */
+    color: #fff; /* Texto blanco en hover o en foco */
+}
+
+/* Estilos para .btn-primary:active, .btn-primary.active */
+.btn-primary:active,
+.btn-primary.active {
+    background-color: #A10F1A; /* Color aún más oscuro al hacer clic */
+    border-color: #A10F1A; /* Borde aún más oscuro al hacer clic */
+    color: #fff; /* Texto blanco al hacer clic */
+}
+
+/* custom-bootstrap.css */
+
+/* Estilos para a:hover */
+a:hover {
+    color: #D81324; /* Color rojo para el texto en hover */
+    text-decoration: underline; /* Subrayado en hover */
+}
+
+/* Estilos para .btn-primary:focus */
+.btn-primary.focus,
+.btn-primary:focus {
+    color: #fff; /* Texto blanco en foco */
+    background-color: #D81324; /* Fondo rojo en foco */
+    border-color: #D81324; /* Borde rojo en foco */
+    box-shadow: 0 0 0 0.2rem rgba(216, 19, 36, 0.5); /* Sombra roja en foco */
+}
+
+/* Estilos para .btn-primary:hover */
+.btn-primary:hover {
+    color: #fff; /* Texto blanco en hover */
+    background-color: #C1121E; /* Fondo rojo más oscuro en hover */
+    border-color: #C1121E; /* Borde rojo más oscuro en hover */
+}
+
+/* custom-bootstrap.css */
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+    color: #fff !important; /* Texto blanco */
+    background-color: #D81324 !important; /* Fondo rojo */
+    border-color: #D81324 !important; /* Borde rojo */
+}
+
+/* custom-bootstrap.css */
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+    color: #fff !important; /* Texto blanco */
+    background-color: #D81324 !important; /* Fondo rojo */
+    border-color: #D81324 !important; /* Borde rojo */
+}
+/* custom-bootstrap.css */
+
+/* Estilos para .btn-primary:hover */
+.btn-primary:hover {
+    color: #fff; /* Texto blanco en hover */
+    background-color: #D81324; /* Fondo rojo en hover */
+    border-color: #D81324; /* Borde rojo en hover */
+}
+
+/* Estilos para a:hover */
+a:hover {
+    color: #D81324; /* Texto rojo en hover */
+    text-decoration: underline; /* Subrayado en hover */
+}
