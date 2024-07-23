@@ -17,6 +17,7 @@
 </head>
 <body>
 
+<!-- Modal de Iniciar Sesión -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -41,13 +42,16 @@
                         <a id="btnOlvidoContraseña" href="#" class="btn btn-link">¿Olvidó su contraseña?</a>
                     </div>
                     <div class="text-center mt-3">
-                        <a id="btnRegistrarse" href="#" class="btn btn-link">Registrarse</a>
+                        <a id="btnRegistrarse" href="#" class="btn btn-link" data-toggle="modal" data-target="#registroModal">Registrarse</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal de Registro -->
+<jsp:include page="Registro.jsp" />
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
