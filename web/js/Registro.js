@@ -1,7 +1,7 @@
 /*
  *  AR-001
- *  Autor: José Andrés Alvarado Matamoros
- *  Función para validar el formulario antes de enviarlo al servelet
+ *  Autor: José Andrés Alvarado Matamoros 
+ *  Función para validar el formulario antes de enviarlo al servlet
  * @returns {Boolean}
  */
 function validarFormulario() {
@@ -13,7 +13,7 @@ function validarFormulario() {
     const primerApellido = document.getElementById('primerApellido').value.trim();
     const segundoApellido = document.getElementById('segundoApellido').value.trim();
     const fechaNacimiento = document.getElementById('fechaNacimiento').value.trim();
-    const email = document.getElementById('email').value.trim();
+    const email = document.getElementById('txtEmail').value.trim();
     const contrasena = document.getElementById('contraseña').value.trim();
     const confirmarContrasena = document.getElementById('confirmarContraseña').value.trim();
     const numeroTelefono = document.getElementById('numeroTelefono').value.trim();
@@ -90,8 +90,6 @@ function validarFormulario() {
         document.getElementById('errorCategoriaTelefonoId').textContent = 'La categoría de teléfono es obligatoria.';
         esValido = false;
     }
-
-    
 
     // Validación de país
     if (codigoPais === '') {
@@ -194,7 +192,6 @@ function validarContrasena(contrasena) {
     return { error };
 }
 
-
 /*
  *  AR-001
  *  Autor: José Andrés Alvarado Matamoros 
@@ -216,30 +213,36 @@ function actualizarRequisitosContrasena(contrasena) {
     document.getElementById('requisitoEspecial').style.color = requisitos.especial ? 'green' : 'red';
 }
 
-
 /*
  *  AR-001
  *  Autor: José Andrés Alvarado Matamoros 
- * Función para manejar la entrada de datos en los campos del formulario
- * @param {event} contrasena
- * @returns
+ * Función para manejar la entrada del usuario y capitalizar el primer carácter
+ * @param {Event} event
  */
 function manejarEntrada(event) {
     const id = event.target.id;
+
+    // Limpiar mensaje de error al escribir en el campo
     const errorLabel = document.getElementById(`error${id.charAt(0).toUpperCase() + id.slice(1)}`);
-    if (event.target.value.trim() !== '') {
+    if (errorLabel) {
         errorLabel.textContent = '';
+    }
+
+    // Si no es el campo de contraseña, capitalizar el primer carácter
+    if (id !== 'contraseña' && id !== 'confirmarContraseña') {
+        const valor = event.target.value;
+        event.target.value = valor.charAt(0).toUpperCase() + valor.slice(1);
     }
 }
 
-// Añadir eventos de entrada a los campos del formulario
+// Array con los identificadores de los campos del formulario
 const campos = [
     'credencialId',
     'nombre',
     'primerApellido',
     'segundoApellido',
     'fechaNacimiento',
-    'email',
+    'txtEmail',
     'contraseña',
     'confirmarContraseña',
     'numeroTelefono',
@@ -253,8 +256,15 @@ const campos = [
     'descripcionDireccion'
 ];
 
+// Añadir el evento de entrada a cada campo
 campos.forEach(campo => {
     document.getElementById(campo).addEventListener('input', manejarEntrada);
+    if (campo === 'contraseña') {
+        document.getElementById(campo).addEventListener('input', function() {
+            const contrasena = this.value;
+            actualizarRequisitosContrasena(contrasena);
+        });
+    }
 });
 
 // Añadir el evento de validación al enviar el formulario

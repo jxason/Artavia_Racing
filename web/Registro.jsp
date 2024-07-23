@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico">
+                        <input type="email" class="form-control" id="txtEmail" placeholder="Ingrese su correo electrónico">
                         <label id="errorEmail" class="text-danger"></label>
                     </div>
                     <div class="form-group">
