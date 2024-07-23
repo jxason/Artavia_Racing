@@ -124,7 +124,7 @@ function validarFormulario() {
     if (esValido) {
         // Hacer el llamado AJAX si el formulario es válido
         $.ajax({
-            url: 'UserRegisterController', // URL del servlet
+            url: '/Artavia_Racing/UserRegisterController', // URL del servlet
             type: 'POST',
             data: {
                 credencialId: credencialId,
