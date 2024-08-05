@@ -35,7 +35,7 @@ public class UserRegisterBL implements IUserRegisterBL
     public String Save(ClienteDTO clienteDTO) {
         //Aqui validamos si el usuaio existe, en caso de no exitir, devolvemos una respuesta de error
         String ResponseValidation = userRegisterDA.Validate(clienteDTO.getCredencialId());
-        if(ResponseValidation == null && ResponseValidation.trim().isEmpty())
+        if(ResponseValidation == null || ResponseValidation.trim().isEmpty())
         {  
             //Antes de enviar a guardar la informacion encriptamos la contraseña en sha 512 de esta forma es imposible saber cual es la contraseña
             clienteDTO.setContrasena(encryptSHA512BL.Encrypt(clienteDTO.getContrasena()));
