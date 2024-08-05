@@ -6,7 +6,7 @@
  */
 $(document).ready(function() {
     cargarPaises();
-    
+    cargarTiposTelefonos();
     $('#codigoPais').change(function() {
         cargarEstados($(this).val()); // Llamar a la función para cargar estados
     });
@@ -55,6 +55,41 @@ function cargarPaises() {
         }
     });
 }
+/*
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ *  Función para cargar la lista de tipos de telefonos desde el servidor
+ */
+function cargarTiposTelefonos() {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getTelephone' },
+        success: function(response) {
+            const tipoTelefonosSelect = document.getElementById('categoriaTelefonoId');
+            tipoTelefonosSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione tipo teléfono';
+            tipoTelefonosSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(telefono) {
+                const option = document.createElement('option');
+                option.value = telefono.CategoriaTelefonoId;
+                option.textContent = telefono.TipoTelefono; 
+                tipoTelefonosSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los tipos de telefonos:', error);
+            alert('Hubo un error al cargar la lista de telefonos.');
+        }
+    });
+}
+
 
 /**
  *  AR-001

@@ -79,11 +79,9 @@
                         <label id="errorNumeroTelefono" class="text-danger"></label>
                     </div>
                     <div class="form-group">
-                        <label for="categoriaTelefonoId">Categoría de Teléfono</label>
+                        <label for="categoriaTelefonoId">Categoría de Teléfono</label>                        
                         <select class="form-control" id="categoriaTelefonoId">
-                            <option value="">Seleccione una categoría</option>
-                            <option value="1">Categoría 1</option>
-                            <option value="2">Categoría 2</option>
+                            <option value="">Seleccione tipo teléfono</option>
                         </select>
                         <label id="errorCategoriaTelefonoId" class="text-danger"></label>
                     </div>

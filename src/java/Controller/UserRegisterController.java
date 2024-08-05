@@ -4,12 +4,14 @@ import BusinessLogic.CountryBL;
 import BusinessLogic.CountyBL;
 import BusinessLogic.DistrictBL;
 import BusinessLogic.StateBL;
+import BusinessLogic.TelefonoBL;
 import BusinessLogic.UserRegisterBL;
 import Entities.ClienteDTO;
 import Entities.CountryDTO;
 import Entities.CountyDTO;
 import Entities.DistrictDTO;
 import Entities.StateDTO;
+import Entities.TipoTelefonoDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +29,7 @@ public class UserRegisterController extends HttpServlet {
     private CountyBL  countyBL= new  CountyBL();
     private DistrictBL  districtBL= new  DistrictBL();
     private UserRegisterBL userRegisterBL= new  UserRegisterBL();
+    private TelefonoBL telefonoBL= new TelefonoBL();
     /**
      * AR-001
      * @Author Andrés Alvarado Matamoros
@@ -212,7 +215,23 @@ public class UserRegisterController extends HttpServlet {
             } else {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de condado no proporcionado o inválido.");
             }
-        }
+        }else  if ("getTelephone".equals(action)) {
+            List<TipoTelefonoDTO> TipoTelefonos = telefonoBL.GetAll();
+
+            // Configurar el tipo de contenido de la respuesta
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // Crear una instancia de Gson
+            Gson gson = new Gson();
+
+            // Convertir la lista de tipos de telefonos a JSON
+            String jsonResponse = gson.toJson(TipoTelefonos);
+
+            // Enviar la respuesta al cliente
+            response.getWriter().write(jsonResponse);
+
+        } 
     }
     @Override
     public String getServletInfo() {
