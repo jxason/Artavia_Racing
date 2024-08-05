@@ -4,6 +4,8 @@ import BusinessLogic.CountryBL;
 import BusinessLogic.CountyBL;
 import BusinessLogic.DistrictBL;
 import BusinessLogic.StateBL;
+import BusinessLogic.UserRegisterBL;
+import Entities.ClienteDTO;
 import Entities.CountryDTO;
 import Entities.CountyDTO;
 import Entities.DistrictDTO;
@@ -24,47 +26,74 @@ public class UserRegisterController extends HttpServlet {
     private StateBL stateBL= new StateBL();
     private CountyBL  countyBL= new  CountyBL();
     private DistrictBL  districtBL= new  DistrictBL();
-    
+    private UserRegisterBL userRegisterBL= new  UserRegisterBL();
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * AR-001
+     * @Author Andrés Alvarado Matamoros
+     * Este método recupera los datos del formulario enviados a través de una solicitud HTTP POST, 
+     * asigna los valores a un objeto {@link ClienteDTO} y luego puede ser utilizado para procesos adicionales, 
+     * como la lógica de registro. Parsea y convierte los datos según sea necesario, incluyendo el manejo de 
+     * campos opcionales y valores predeterminados.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request el objeto HttpServletRequest que contiene la solicitud realizada por el cliente
+     * @param response el objeto HttpServletResponse que contiene la respuesta que el servlet devuelve
+     * @throws ServletException si ocurre un error específico del servlet
+     * @throws IOException si ocurre un error de entrada/salida al escribir la respuesta
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Obtener los datos del formulario enviados por AJAX
-        String credencialId = request.getParameter("credencialId");
-        String nombre = request.getParameter("nombre");
-        String primerApellido = request.getParameter("primerApellido");
-        String segundoApellido = request.getParameter("segundoApellido");
-        String fechaNacimiento = request.getParameter("fechaNacimiento");
-        String email = request.getParameter("email");
-        String contrasena = request.getParameter("contrasena");
-        String numeroTelefono = request.getParameter("numeroTelefono");
-        String categoriaTelefonoId = request.getParameter("categoriaTelefonoId");
-        String numeroExtension = request.getParameter("numeroExtension");
-        String descripcionTelefono = request.getParameter("descripcionTelefono");
-        String codigoPais = request.getParameter("codigoPais");
-        String codigoEstado = request.getParameter("codigoEstado");
-        String codigoCondado = request.getParameter("codigoCondado");
-        String codigoDistrito = request.getParameter("codigoDistrito");
-        String descripcionDireccion = request.getParameter("descripcionDireccion");
+       // Crear una instancia del DTO y asignar los valores directamente
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setCredencialId(request.getParameter("credencialId"));
+        clienteDTO.setNombre(request.getParameter("nombre"));
+        clienteDTO.setPrimerApellido(request.getParameter("primerApellido"));
+        clienteDTO.setSegundoApellido(request.getParameter("segundoApellido"));
 
-        // Aquí puedes hacer lo que quieras con los datos, como enviarlos a otro sistema
-        // Por ahora, solo respondemos con un éxito para probar que todo está funcionando.
+        // Convertir la fecha de nacimiento si está presente
+        String fechaNacimientoStr = request.getParameter("fechaNacimiento");
+        clienteDTO.setFechaNacimiento(fechaNacimientoStr != null ? java.sql.Date.valueOf(fechaNacimientoStr) : null);
 
+        clienteDTO.setCorreoElectronico(request.getParameter("email"));
+        clienteDTO.setContrasena(request.getParameter("contrasena"));
+        clienteDTO.setNumeroTelefono(request.getParameter("numeroTelefono"));
+
+        // Convertir y asignar valores numéricos
+        clienteDTO.setCategoriaTelefonoId(parseIntOrDefault(request.getParameter("categoriaTelefonoId"), 0));
+        clienteDTO.setNumeroExtension(parseIntOrDefault(request.getParameter("numeroExtension"), 0));
+        clienteDTO.setDescripcionTelefono(request.getParameter("descripcionTelefono"));
+
+        clienteDTO.setCodigoPais(parseIntOrDefault(request.getParameter("codigoPais"), 0));
+        clienteDTO.setCodigoEstado(parseIntOrDefault(request.getParameter("codigoEstado"), 0));
+        clienteDTO.setCodigoCondado(parseIntOrDefault(request.getParameter("codigoCondado"), 0));
+        clienteDTO.setCodigoDistrito(parseIntOrDefault(request.getParameter("codigoDistrito"), 0));
+
+        clienteDTO.setDescripcionDireccion(request.getParameter("descripcionDireccion"));
+
+        String ResponseSaveUser= userRegisterBL.Save(clienteDTO);
+
+        // Responder con éxito
         response.setContentType("application/json");
-        response.getWriter().write("{\"success\": true, \"message\": \"Datos recibidos correctamente.\"}");
+        response.getWriter().write(ResponseSaveUser);
     }
-    
+    /**
+     * AR-001
+     * @Author Andrés Alvarado Matamoros
+     *  Método auxiliar para convertir una cadena a un entero, con valor predeterminado en caso de error o si es nulo    
+     */    
+    private int parseIntOrDefault(String value, int defaultValue) {
+        try {
+            return value != null ? Integer.parseInt(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
     /**
      * AR-001
      * @Author Andrés Alvarado Matamoros
      * Metodo encargado de ejecutar las acciones get para el registro del usuario en el sistema     
+     * @param request
+     * @param response     
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
