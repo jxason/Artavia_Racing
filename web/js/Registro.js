@@ -1,6 +1,208 @@
 /*
  *  AR-001
  *  Autor: José Andrés Alvarado Matamoros 
+ *  Constructor para iniciar las propiedades de una pagina desde js.
+ * @returns {Boolean}
+ */
+$(document).ready(function() {
+    cargarPaises();
+    cargarTiposTelefonos();
+    $('#codigoPais').change(function() {
+        cargarEstados($(this).val()); // Llamar a la función para cargar estados
+    });
+    
+    $('#codigoEstado').change(function() {
+        cargarCondados($(this).val()); // Llamar a la función para cargar estados
+    });
+    
+    $('#codigoCondado').change(function() {
+        cargarDistritos($(this).val()); // Llamar a la función para cargar estados
+    });
+    
+});
+
+/*
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ *  Función para cargar la lista de países desde el servidor
+ */
+function cargarPaises() {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getCountries' },
+        success: function(response) {
+            const paisSelect = document.getElementById('codigoPais');
+            paisSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un país';
+            paisSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(pais) {
+                const option = document.createElement('option');
+                option.value = pais.CodigoPais; // Asegúrate de que 'CodigoPais' es el campo correcto
+                option.textContent = pais.NombrePais; // Asegúrate de que 'NombrePais' es el campo correcto
+                paisSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los países:', error);
+            alert('Hubo un error al cargar la lista de países.');
+        }
+    });
+}
+/*
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ *  Función para cargar la lista de tipos de telefonos desde el servidor
+ */
+function cargarTiposTelefonos() {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getTelephone' },
+        success: function(response) {
+            const tipoTelefonosSelect = document.getElementById('categoriaTelefonoId');
+            tipoTelefonosSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione tipo teléfono';
+            tipoTelefonosSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(telefono) {
+                const option = document.createElement('option');
+                option.value = telefono.CategoriaTelefonoId;
+                option.textContent = telefono.TipoTelefono; 
+                tipoTelefonosSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los tipos de telefonos:', error);
+            alert('Hubo un error al cargar la lista de telefonos.');
+        }
+    });
+}
+
+
+/**
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ * Función para cargar la lista de estados desde el servidor
+ * @param {Number} codigoPais - El código del país seleccionado
+ */
+
+function cargarEstados(codigoPais) {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getStates', codigoPais: codigoPais },
+        success: function(response) {
+            const estadoSelect = document.getElementById('codigoEstado');
+            estadoSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un estado';
+            estadoSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(estado) {
+                const option = document.createElement('option');
+                option.value = estado.CodigoEstado; // Asegúrate de que 'codigo' es el campo correcto
+                option.textContent = estado.NombreEstado; // Asegúrate de que 'nombre' es el campo correcto
+                estadoSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los estados:', error);
+            alert('Hubo un error al cargar la lista de estados.');
+        }
+    });
+}
+
+/**
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ * Función para cargar la lista de condados desde el servidor
+ * @param {Number} codigoEstado - El código del estado seleccionado
+ */
+function cargarCondados(codigoEstado) {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getCondados', codigoEstado: codigoEstado },
+        success: function(response) {
+            const condadoSelect = document.getElementById('codigoCondado');
+            condadoSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un condado';
+            condadoSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(condado) {
+                const option = document.createElement('option');
+                option.value = condado.CodigoCondado; // Asegúrate de que 'codigo' es el campo correcto
+                option.textContent = condado.NombreCondado; // Asegúrate de que 'nombre' es el campo correcto
+                condadoSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los condados:', error);
+            alert('Hubo un error al cargar la lista de condados.');
+        }
+    });
+}
+
+/**
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ * Función para cargar la lista de condados desde el servidor
+ * @param {Number} codigoCondado - El código del condado seleccionado
+ */
+function cargarDistritos(codigoCondado) {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getDistritos', codigoCondado: codigoCondado },
+        success: function(response) {
+            const distritosSelect = document.getElementById('codigoDistrito');
+            distritosSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un distrito';
+            distritosSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(distrito) {
+                const option = document.createElement('option');
+                option.value = distrito.CodigoDistrito; // Asegúrate de que 'codigo' es el campo correcto
+                option.textContent = distrito.NombreDistrito; // Asegúrate de que 'nombre' es el campo correcto
+                distritosSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los distritos:', error);
+            alert('Hubo un error al cargar la lista de distritos.');
+        }
+    });
+}
+
+/*
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
  *  Función para validar el formulario antes de enviarlo al servlet
  * @returns {Boolean}
  */

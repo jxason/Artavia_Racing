@@ -79,11 +79,9 @@
                         <label id="errorNumeroTelefono" class="text-danger"></label>
                     </div>
                     <div class="form-group">
-                        <label for="categoriaTelefonoId">Categoría de Teléfono</label>
+                        <label for="categoriaTelefonoId">Categoría de Teléfono</label>                        
                         <select class="form-control" id="categoriaTelefonoId">
-                            <option value="">Seleccione una categoría</option>
-                            <option value="1">Categoría 1</option>
-                            <option value="2">Categoría 2</option>
+                            <option value="">Seleccione tipo teléfono</option>
                         </select>
                         <label id="errorCategoriaTelefonoId" class="text-danger"></label>
                     </div>
@@ -98,40 +96,32 @@
                     </div>
                     <div class="form-group">
                         <label for="codigoPais">País</label>
-                        <select class="form-control" id="codigoPais">
-                            <option value="">Seleccione un país</option>
-                            <option value="1">País 1</option>
-                            <option value="2">País 2</option>
-                        </select>
-                        <label id="errorCodigoPais" class="text-danger"></label>
+                      <select class="form-control" id="codigoPais">
+                        <option value="">Seleccione un país</option>
+                      </select>
+                      <label id="errorCodigoPais" class="text-danger"></label>
                     </div>
 
                     <div class="form-group">
                         <label for="codigoEstado">Estado</label>
                         <select class="form-control" id="codigoEstado">
                             <option value="">Seleccione un estado</option>
-                            <option value="1">Estado 1</option>
-                            <option value="2">Estado 2</option>
-                        </select>
+                        </select>                        
                         <label id="errorCodigoEstado" class="text-danger"></label>
                     </div>
 
                     <div class="form-group">
                         <label for="codigoCondado">Condado</label>
                         <select class="form-control" id="codigoCondado">
-                            <option value="">Seleccione un condado</option>
-                            <option value="1">Condado 1</option>
-                            <option value="2">Condado 2</option>
-                        </select>
+                            <option value="">Seleccione un estado</option>
+                        </select>                           
                         <label id="errorCodigoCondado" class="text-danger"></label>
                     </div>
 
                     <div class="form-group">
                         <label for="codigoDistrito">Distrito</label>
                         <select class="form-control" id="codigoDistrito">
-                            <option value="">Seleccione un distrito</option>
-                            <option value="1">Distrito 1</option>
-                            <option value="2">Distrito 2</option>
+                            <option value="">Seleccione un estado</option>
                         </select>
                         <label id="errorCodigoDistrito" class="text-danger"></label>
                     </div>
