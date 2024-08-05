@@ -98,21 +98,17 @@
                     </div>
                     <div class="form-group">
                         <label for="codigoPais">País</label>
-                        <select class="form-control" id="codigoPais">
-                            <option value="">Seleccione un país</option>
-                            <option value="1">País 1</option>
-                            <option value="2">País 2</option>
-                        </select>
-                        <label id="errorCodigoPais" class="text-danger"></label>
+                      <select class="form-control" id="codigoPais">
+                        <option value="">Seleccione un país</option>
+                      </select>
+                      <label id="errorCodigoPais" class="text-danger"></label>
                     </div>
 
                     <div class="form-group">
                         <label for="codigoEstado">Estado</label>
                         <select class="form-control" id="codigoEstado">
                             <option value="">Seleccione un estado</option>
-                            <option value="1">Estado 1</option>
-                            <option value="2">Estado 2</option>
-                        </select>
+                        </select>                        
                         <label id="errorCodigoEstado" class="text-danger"></label>
                     </div>
 

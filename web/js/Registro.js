@@ -1,6 +1,92 @@
 /*
  *  AR-001
  *  Autor: José Andrés Alvarado Matamoros 
+ *  Constructor para iniciar las propiedades de una pagina desde js.
+ * @returns {Boolean}
+ */
+$(document).ready(function() {
+    cargarPaises();
+     $('#codigoPais').change(function() {
+        cargarEstados($(this).val()); // Llamar a la función para cargar estados
+    });
+    
+});
+
+/*
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ *  Función para cargar la lista de países desde el servidor
+ */
+function cargarPaises() {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getCountries' },
+        success: function(response) {
+            const paisSelect = document.getElementById('codigoPais');
+            paisSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un país';
+            paisSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(pais) {
+                const option = document.createElement('option');
+                option.value = pais.CodigoPais; // Asegúrate de que 'CodigoPais' es el campo correcto
+                option.textContent = pais.NombrePais; // Asegúrate de que 'NombrePais' es el campo correcto
+                paisSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los países:', error);
+            alert('Hubo un error al cargar la lista de países.');
+        }
+    });
+}
+
+/**
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ * Función para cargar la lista de estados desde el servidor
+ * @param {Number} codigoPais - El código del país seleccionado
+ */
+
+function cargarEstados(codigoPais) {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getStates', codigoPais: codigoPais },
+        success: function(response) {
+            const estadoSelect = document.getElementById('codigoEstado');
+            estadoSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un estado';
+            estadoSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(estado) {
+                const option = document.createElement('option');
+                option.value = estado.CodigoEstado; // Asegúrate de que 'codigo' es el campo correcto
+                option.textContent = estado.NombreEstado; // Asegúrate de que 'nombre' es el campo correcto
+                estadoSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los estados:', error);
+            alert('Hubo un error al cargar la lista de estados.');
+        }
+    });
+}
+
+/*
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
  *  Función para validar el formulario antes de enviarlo al servlet
  * @returns {Boolean}
  */
