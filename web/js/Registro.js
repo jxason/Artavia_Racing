@@ -6,8 +6,17 @@
  */
 $(document).ready(function() {
     cargarPaises();
-     $('#codigoPais').change(function() {
+    
+    $('#codigoPais').change(function() {
         cargarEstados($(this).val()); // Llamar a la función para cargar estados
+    });
+    
+    $('#codigoEstado').change(function() {
+        cargarCondados($(this).val()); // Llamar a la función para cargar estados
+    });
+    
+    $('#codigoCondado').change(function() {
+        cargarDistritos($(this).val()); // Llamar a la función para cargar estados
     });
     
 });
@@ -80,6 +89,78 @@ function cargarEstados(codigoPais) {
         error: function(xhr, status, error) {
             console.error('Error al cargar los estados:', error);
             alert('Hubo un error al cargar la lista de estados.');
+        }
+    });
+}
+
+/**
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ * Función para cargar la lista de condados desde el servidor
+ * @param {Number} codigoEstado - El código del estado seleccionado
+ */
+function cargarCondados(codigoEstado) {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getCondados', codigoEstado: codigoEstado },
+        success: function(response) {
+            const condadoSelect = document.getElementById('codigoCondado');
+            condadoSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un condado';
+            condadoSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(condado) {
+                const option = document.createElement('option');
+                option.value = condado.CodigoCondado; // Asegúrate de que 'codigo' es el campo correcto
+                option.textContent = condado.NombreCondado; // Asegúrate de que 'nombre' es el campo correcto
+                condadoSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los condados:', error);
+            alert('Hubo un error al cargar la lista de condados.');
+        }
+    });
+}
+
+/**
+ *  AR-001
+ *  Autor: José Andrés Alvarado Matamoros 
+ * Función para cargar la lista de condados desde el servidor
+ * @param {Number} codigoCondado - El código del condado seleccionado
+ */
+function cargarDistritos(codigoCondado) {
+    $.ajax({
+        url: '/Artavia_Racing/UserRegisterController',
+        type: 'GET',
+        data: { action: 'getDistritos', codigoCondado: codigoCondado },
+        success: function(response) {
+            const distritosSelect = document.getElementById('codigoDistrito');
+            distritosSelect.innerHTML = ''; // Limpiar el contenido existente
+
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un distrito';
+            distritosSelect.appendChild(defaultOption);
+
+            // Agregar nuevas opciones
+            response.forEach(function(distrito) {
+                const option = document.createElement('option');
+                option.value = distrito.CodigoDistrito; // Asegúrate de que 'codigo' es el campo correcto
+                option.textContent = distrito.NombreDistrito; // Asegúrate de que 'nombre' es el campo correcto
+                distritosSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los distritos:', error);
+            alert('Hubo un error al cargar la lista de distritos.');
         }
     });
 }

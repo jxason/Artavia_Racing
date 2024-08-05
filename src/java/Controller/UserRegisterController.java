@@ -1,8 +1,12 @@
 package Controller;
 
 import BusinessLogic.CountryBL;
+import BusinessLogic.CountyBL;
+import BusinessLogic.DistrictBL;
 import BusinessLogic.StateBL;
 import Entities.CountryDTO;
+import Entities.CountyDTO;
+import Entities.DistrictDTO;
 import Entities.StateDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -18,6 +22,8 @@ public class UserRegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private CountryBL countryBL = new CountryBL(); 
     private StateBL stateBL= new StateBL();
+    private CountyBL  countyBL= new  CountyBL();
+    private DistrictBL  districtBL= new  DistrictBL();
     
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -112,6 +118,70 @@ public class UserRegisterController extends HttpServlet {
                 }
             } else {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de país no proporcionado o inválido.");
+            }
+        } else if ("getCondados".equals(action)) {
+            // Obtener el parámetro 'codigoEstado' de la solicitud
+            String codigoEstadoParam = request.getParameter("codigoEstado");
+
+            // Verificar si 'codigoPais' no es nulo y no está vacío
+            if (codigoEstadoParam != null && !codigoEstadoParam.trim().isEmpty()) {
+                try {
+                    // Convertir el parámetro 'codigoEstado' a entero
+                    int codigoEstado = Integer.parseInt(codigoEstadoParam);
+
+                    // Obtener la lista de condados usando el Business Logic
+                    List<CountyDTO> listCondados = countyBL.GetAll(codigoEstado);
+
+                    // Configurar el tipo de contenido de la respuesta
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+
+                    // Crear una instancia de Gson
+                    Gson gson = new Gson();
+
+                    // Convertir la lista de condados a JSON
+                    String jsonResponse = gson.toJson(listCondados);
+
+                    // Enviar la respuesta al cliente
+                    response.getWriter().write(jsonResponse);
+
+                } catch (NumberFormatException e) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de estado no válido.");
+                }
+            } else {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de estado no proporcionado o inválido.");
+            }
+        }else if ("getDistritos".equals(action)) {
+            // Obtener el parámetro 'codigoCondado' de la solicitud
+            String codigoCondadoParam = request.getParameter("codigoCondado");
+
+            // Verificar si 'codigoPais' no es nulo y no está vacío
+            if (codigoCondadoParam != null && !codigoCondadoParam.trim().isEmpty()) {
+                try {
+                    // Convertir el parámetro 'codigoCondado' a entero
+                    int codigoCondado = Integer.parseInt(codigoCondadoParam);
+
+                    // Obtener la lista de distritos usando el Business Logic
+                    List<DistrictDTO> listDistritos = districtBL.GetAll(codigoCondado);
+
+                    // Configurar el tipo de contenido de la respuesta
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+
+                    // Crear una instancia de Gson
+                    Gson gson = new Gson();
+
+                    // Convertir la lista de condados a JSON
+                    String jsonResponse = gson.toJson(listDistritos);
+
+                    // Enviar la respuesta al cliente
+                    response.getWriter().write(jsonResponse);
+
+                } catch (NumberFormatException e) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de condado no válido.");
+                }
+            } else {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de condado no proporcionado o inválido.");
             }
         }
     }

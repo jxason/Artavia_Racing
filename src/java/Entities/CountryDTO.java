@@ -5,7 +5,7 @@
 package Entities;
 
 /**
- * A-001
+ * AR-001
  * Autor: José Andrés Alvarado Matamoros
  * Clase Objeto encargado de administrar la variable del pais.
  */

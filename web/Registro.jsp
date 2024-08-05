@@ -115,19 +115,15 @@
                     <div class="form-group">
                         <label for="codigoCondado">Condado</label>
                         <select class="form-control" id="codigoCondado">
-                            <option value="">Seleccione un condado</option>
-                            <option value="1">Condado 1</option>
-                            <option value="2">Condado 2</option>
-                        </select>
+                            <option value="">Seleccione un estado</option>
+                        </select>                           
                         <label id="errorCodigoCondado" class="text-danger"></label>
                     </div>
 
                     <div class="form-group">
                         <label for="codigoDistrito">Distrito</label>
                         <select class="form-control" id="codigoDistrito">
-                            <option value="">Seleccione un distrito</option>
-                            <option value="1">Distrito 1</option>
-                            <option value="2">Distrito 2</option>
+                            <option value="">Seleccione un estado</option>
                         </select>
                         <label id="errorCodigoDistrito" class="text-danger"></label>
                     </div>

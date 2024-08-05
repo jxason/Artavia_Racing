@@ -4,8 +4,8 @@
  */
 package DataAccess;
 
-import DataAccessInterface.IStateDA;
-import Entities.StateDTO;
+import DataAccessInterface.ICountyDA;
+import Entities.CountyDTO;
 import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,20 +17,20 @@ import java.util.logging.Level;
 /**
  * AR-001
  * Author: Andrés Alvarado Matamoros
- * Clase encargada de administrar informacion del Estado de los paises.
+ * Clase encargada de administrar informacion del condado de los estados.
  */
-public class StateDA extends BaseConnectionDA implements IStateDA 
+public class CountyDA extends BaseConnectionDA implements ICountyDA
 {
    /**
     * AR-001
     * Author: Andrés Alvarado Matamoros
     * Metodo encargado de obtener toda la informacion del Estado de los paises.
-    * @param CodigoPais
+    * @param CodigoEstado    
     * @return 
     */
     @Override
-    public List<StateDTO> GetAll(int CodigoPais) {
-        List<StateDTO> lista = new ArrayList<>();   
+    public List<CountyDTO> GetAll(int CodigoEstado) {
+        List<CountyDTO> lista = new ArrayList<>();   
         try {
             // Establecer la conexión
             connections = conectionDA.Get();
@@ -39,8 +39,8 @@ public class StateDA extends BaseConnectionDA implements IStateDA
             }
 
             // Preparar el procedimiento almacenado
-            callableStatements = connections.prepareCall("{call USP_SeleccionarEstados(?,?)}");
-            callableStatements.setInt(1, CodigoPais);
+            callableStatements = connections.prepareCall("{call USP_SeleccionarCondado(?,?)}");
+            callableStatements.setInt(1, CodigoEstado);
             callableStatements.registerOutParameter(2, java.sql.Types.REF_CURSOR);
 
             // Ejecutar el procedimiento almacenado
@@ -51,9 +51,9 @@ public class StateDA extends BaseConnectionDA implements IStateDA
 
             // Procesar los resultados
             while (resultSets.next()) {
-                StateDTO dto = new StateDTO();
-                dto.setCodigoEstado(resultSets.getInt("CODIGOESTADO"));
-                dto.setNombreEstado(resultSets.getString("NOMBRE"));
+                CountyDTO dto = new CountyDTO();
+                dto.setCodigoCondado(resultSets.getInt("CODIGOCONDADO"));
+                dto.setNombreCondado(resultSets.getString("NOMBRE"));
                 lista.add(dto);
             }
         } catch (SQLException e) {
