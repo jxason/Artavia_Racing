@@ -6,6 +6,7 @@ package DataAccess;
 
 import DataAccessInterface.IUserRegisterDA;
 import Entities.ClienteDTO;
+import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -24,37 +25,35 @@ public class UserRegisterDA extends BaseConnectionDA implements IUserRegisterDA{
     @Override
     public boolean Save(ClienteDTO clienteDTO) {
         boolean isRegistered = false;
-            try {
+        try {
             connections = conectionDA.Get();
             callableStatements = connections.prepareCall("{call USP_RegistrarCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 
-            callableStatements.setString(1, clienteDTO.getCredencialId());
-            callableStatements.setInt(2, clienteDTO.getRolId());
-            callableStatements.setString(3, clienteDTO.getNombre());
-            callableStatements.setString(4, clienteDTO.getPrimerApellido());
-            callableStatements.setString(5, clienteDTO.getSegundoApellido());
-            callableStatements.setDate(6, new java.sql.Date(clienteDTO.getFechaNacimiento().getTime()));
-            callableStatements.setString(7, clienteDTO.getNumeroTelefono());
-            callableStatements.setInt(8, clienteDTO.getCategoriaTelefonoId());
+            // Configurar parámetros para CLIENTE
+            callableStatements.setString(1,clienteDTO.getCredencialId()); // p_credencial_id
+            callableStatements.setInt(2, clienteDTO.getRolId());             // p_rol_id
+            callableStatements.setString(3, clienteDTO.getNombre()); // p_nombre
+            callableStatements.setString(4,clienteDTO.getPrimerApellido());    // p_primer_apellido
+            callableStatements.setString(5, clienteDTO.getSegundoApellido());   // p_segundo_apellido
+            callableStatements.setDate(6, clienteDTO.getFechaNacimiento()); // p_fecha_nacimiento
+            callableStatements.setString(7,clienteDTO.getNumeroTelefono());    // p_numero_telefono
+            callableStatements.setInt(8, clienteDTO.getCategoriaTelefonoId());              // p_categoria_telefono_id
+            callableStatements.setInt(9, clienteDTO.getNumeroExtension());              // p_numero_extension
+            callableStatements.setString(10, clienteDTO.getDescripcionTelefono());          // p_descripcion
+            callableStatements.setInt(11, clienteDTO.getCodigoPais());             // p_codigo_pais
+            callableStatements.setInt(12, clienteDTO.getCodigoEstado());             // p_codigo_estado
+            callableStatements.setInt(13, clienteDTO.getCodigoCondado());            // p_codigo_condado
+            callableStatements.setInt(14, clienteDTO.getCodigoDistrito());             // p_codigo_distrito
+            callableStatements.setString(15, clienteDTO.getDescripcionDireccion()); // p_descripcion_direccion
+            callableStatements.setString(16, clienteDTO.getCorreoElectronico()); // p_correo_electronico
+            callableStatements.setString(17, clienteDTO.getContrasena()); // p_contrasena
+            callableStatements.setInt(18, clienteDTO.getEsContrasenaTemporal());             // p_es_contrasena_temporal
 
-            // Asigna 0 si clienteDTO.getNumeroExtension() es null
-            int numeroExtension = clienteDTO.getNumeroExtension() != null ? clienteDTO.getNumeroExtension() : 0;
-            callableStatements.setInt(9, numeroExtension);
-
-            callableStatements.setString(10, clienteDTO.getDescripcionTelefono());
-            callableStatements.setInt(11, clienteDTO.getCodigoPais());
-            callableStatements.setInt(12, clienteDTO.getCodigoEstado());
-            callableStatements.setInt(13, clienteDTO.getCodigoCondado());
-            callableStatements.setInt(14, clienteDTO.getCodigoDistrito());
-            callableStatements.setString(15, clienteDTO.getDescripcionDireccion());
-            callableStatements.setString(16, clienteDTO.getCorreoElectronico());
-            callableStatements.setString(17, clienteDTO.getContrasena());
-            callableStatements.setInt(18, clienteDTO.getEsContrasenaTemporal());
-
+            // Ejecutar el procedimiento almacenado
             callableStatements.execute();
             isRegistered = true;
         } catch (SQLException e) {
-            // Manejo de excepciones
+            e.printStackTrace(); // Manejo de excepciones
         } finally {
             closeResources();
         }

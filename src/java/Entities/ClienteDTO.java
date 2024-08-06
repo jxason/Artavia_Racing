@@ -18,25 +18,28 @@ public class ClienteDTO {
     private String PrimerApellido;
     private String SegundoApellido;
     private Date FechaNacimiento;
-
     private String NumeroTelefono;
     private int CategoriaTelefonoId;
     private Integer NumeroExtension;
     private String DescripcionTelefono;
-
     private int CodigoPais;
     private int CodigoEstado;
     private int CodigoCondado;
     private int CodigoDistrito;
     private String DescripcionDireccion;
-
     private String CorreoElectronico;
     private String Contrasena;
     private int EsContrasenaTemporal = 0; // Valor predeterminado de 0
 
-    public ClienteDTO() {
-    }
+    // Propiedades predeterminadas
+    private String EditadoPor = "000000001"; // Valor predeterminado
+    private int Habilitado = 1; // Valor predeterminado
+    private Date FechaCreacion = new Date(System.currentTimeMillis()); // Valor predeterminado
 
+    // Constructor vacío
+    public ClienteDTO() {}
+
+    // Constructor con parámetros
     public ClienteDTO(String CredencialId, int RolId, String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String NumeroTelefono, int CategoriaTelefonoId, Integer NumeroExtension, String DescripcionTelefono, int CodigoPais, int CodigoEstado, int CodigoCondado, int CodigoDistrito, String DescripcionDireccion, String CorreoElectronico, String Contrasena, int EsContrasenaTemporal) {
         this.CredencialId = CredencialId;
         this.RolId = RolId;
@@ -58,6 +61,7 @@ public class ClienteDTO {
         this.EsContrasenaTemporal = EsContrasenaTemporal;
     }
 
+    // Getters y Setters
     public String getCredencialId() {
         return CredencialId;
     }
@@ -200,5 +204,30 @@ public class ClienteDTO {
 
     public void setEsContrasenaTemporal(int EsContrasenaTemporal) {
         this.EsContrasenaTemporal = EsContrasenaTemporal;
-    }  
+    }
+
+    // Getters y Setters para propiedades predeterminadas
+    public String getEditadoPor() {
+        return EditadoPor;
+    }
+
+    public void setEditadoPor(String EditadoPor) {
+        this.EditadoPor = EditadoPor;
+    }
+
+    public int getHabilitado() {
+        return Habilitado;
+    }
+
+    public void setHabilitado(int Habilitado) {
+        this.Habilitado = Habilitado;
+    }
+
+    public Date getFechaCreacion() {
+        return FechaCreacion;
+    }
+
+    public void setFechaCreacion(Date FechaCreacion) {
+        this.FechaCreacion = FechaCreacion;
+    }
 }
