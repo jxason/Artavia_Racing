@@ -37,7 +37,9 @@
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                    <button type="submit" href="home.jsp" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                    <button type="button" class="btn btn-primary btn-block" id="btnLogin" onclick="window.location.href='home.jsp'">Iniciar Sesión 2</button>
+
                     <div class="text-center mt-3">
                         <a id="btnOlvidoContraseña" href="#" class="btn btn-link">¿Olvidó su contraseña?</a>
                     </div>
