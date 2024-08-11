@@ -4,6 +4,8 @@
  */
 package Entities;
 
+import Entities.Enums.TypeSessions;
+
 /**
  * AZ-001
  * Autor: José Andrés Alvarado Matamoros
@@ -11,10 +13,12 @@ package Entities;
  */
 public class SessionDTO 
 {
-    private int Credential;
+    private String Credential;
     private String Name;
     private int Rol;
     private String Password;
+    private TypeSessions Enum;
+
     /**
      * Constructor 
      */
@@ -29,17 +33,18 @@ public class SessionDTO
      * @param Rol  Rol del usuario.
      * @param Password Contraseña del Usuario.
      */
-    public SessionDTO(int Credential, String Name, int Rol, String Password) {
+    public SessionDTO(String Credential, String Name, int Rol, String Password,TypeSessions Enum) {
         this.Credential = Credential;
         this.Name = Name;
         this.Rol = Rol;
         this.Password = Password;
+        this.Enum = Enum;
     }
-    public int getCredential() {
+    public String getCredential() {
         return Credential;
     }
 
-    public void setCredential(int Credential) {
+    public void setCredential(String Credential) {
         this.Credential = Credential;
     }
 
@@ -66,4 +71,13 @@ public class SessionDTO
     public void setPassword(String Password) {
         this.Password = Password;
     }    
+
+    public TypeSessions getEnum() {
+        return Enum;
+    }
+
+    public void setEnum(TypeSessions Enum) {
+        this.Enum = Enum;
+    }
+    
 }

@@ -5,7 +5,10 @@
 package Controller;
 
 import BusinessLogic.MenuBL;
+import BusinessLogic.SessionBL;
+import Entities.Enums.TypeSessions;
 import Entities.MenuDTO;
+import Entities.SessionDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * AR-001
@@ -24,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MenuController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private MenuBL menuBL = new MenuBL();
+    private SessionBL sessionBL = new SessionBL();
 
     /**
      * AR-001
@@ -38,7 +43,15 @@ public class MenuController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int RolUser = 1; // Ejemplo de ID de rol de usuario, este valor puede ser dinámico
+         HttpSession httpSession = request.getSession(); // Obtener la sesión HTTP
+        SessionDTO session = sessionBL.Get(httpSession, TypeSessions.SESSION_USER);
+        
+        if (session == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User session is not valid.");
+            return;
+        }
+
+        int RolUser = session.getRol(); // Obtener el rol del usuario desde la sesión
         String action = request.getParameter("action");
         
         if ("getMenu".equals(action)) {

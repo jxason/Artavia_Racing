@@ -15,6 +15,14 @@ public class ResponseUsuarioDTO {
     private String credencialId;
     private int rolId;
 
+    public ResponseUsuarioDTO(String credencialId, int rolId) {
+        this.credencialId = credencialId;
+        this.rolId = rolId;
+    }
+
+    public ResponseUsuarioDTO() {
+    }
+
     // Getters y Setters
 
     public String getCredencialId() {

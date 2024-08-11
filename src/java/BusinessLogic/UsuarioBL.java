@@ -4,11 +4,17 @@
  */
 package BusinessLogic;
 
+import BusinessLogicInterface.IEncryptSHA512BL;
+import BusinessLogicInterface.ISessionBL;
 import BusinessLogicInterface.IUsuarioBL;
 import DataAccess.UsuarioDA;
 import DataAccessInterface.IUsuarioDA;
+import Entities.Enums.TypeSessions;
 import Entities.RequestUsuarioDTO;
+import Entities.ResponseDTO;
 import Entities.ResponseUsuarioDTO;
+import Entities.SessionDTO;
+import javax.servlet.http.HttpSession;
 
 /**
  * AR-001
@@ -38,8 +44,38 @@ public class UsuarioBL implements IUsuarioBL {
      *         o null si no existe.
      */
     @Override
-    public ResponseUsuarioDTO Verificar(RequestUsuarioDTO requestDTO) {
-                return usuarioDA.Verificar(requestDTO);
+   public ResponseDTO Verificar(RequestUsuarioDTO requestDTO) {
+        ResponseDTO response = new ResponseDTO();
+        ISessionBL userSession = new SessionBL(); // Asegúrate de usar una instancia adecuada
+        IEncryptSHA512BL encryptSHA512BL = new EncryptSHA512BL();
+
+        // Encriptar la contraseña
+        requestDTO.setContrasena(encryptSHA512BL.Encrypt(requestDTO.getContrasena()));
+
+        // Verificar el usuario
+        ResponseUsuarioDTO responseUser = usuarioDA.Verificar(requestDTO);
+        if (responseUser == null) {
+            response.setSuccess(false);
+        } else {
+            response.setSuccess(true);
+
+            // Crear el objeto SessionDTO
+            SessionDTO sessionData = new SessionDTO(
+                responseUser.getCredencialId(),
+                requestDTO.getCorreoElectronico(),
+                responseUser.getRolId(),
+                requestDTO.getContrasena(),
+                TypeSessions.SESSION_USER
+            );
+
+            // Obtener la sesión HTTP del DTO
+            HttpSession httpSession = requestDTO.getHttpSession();
+
+            // Guardar la información del usuario en la sesión HTTP
+            userSession.Save(httpSession, sessionData);
+        }
+
+        return response;
     }
     
 }

@@ -4,6 +4,8 @@
  */
 package Entities;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * AR-001
  * Autor: José Andrés Alvarado Matamoros
@@ -14,13 +16,15 @@ package Entities;
 public class RequestUsuarioDTO {
     private String correoElectronico;
     private String contrasena;
-
+    private HttpSession httpSession;
     public RequestUsuarioDTO() {
     }
+    
 
-    public RequestUsuarioDTO(String correoElectronico, String contrasena) {
+    public RequestUsuarioDTO(String correoElectronico, String contrasena,HttpSession httpSession) {
         this.correoElectronico = correoElectronico;
         this.contrasena = contrasena;
+         this.httpSession = httpSession;
     }
 
     // Getters y Setters
@@ -40,4 +44,13 @@ public class RequestUsuarioDTO {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+    public HttpSession getHttpSession() {
+        return httpSession;
+    }
+
+    public void setHttpSession(HttpSession httpSession) {
+        this.httpSession = httpSession;
+    }
+    
 }
