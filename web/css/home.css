@@ -1,0 +1,40 @@
+ .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .section-title {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .card-deck .card {
+            margin-bottom: 20px;
+        }
+        .contact-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        /* Asegura que el menú esté por encima del carrusel */
+        #menu-container {
+            position: relative;
+            z-index: 1000; /* Asegura que esté por encima del carrusel */
+        }
+
+        /* Asegura que el carrusel no interfiera con el menú */
+        
+        
+        .dropdown-menu {
+            z-index: 1001; /* Asegura que los submenús se muestren por encima del carrusel */
+        }

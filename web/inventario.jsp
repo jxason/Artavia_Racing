@@ -5,31 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
     <!-- Estilos CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <style>
-        .container {
-            max-width: 1200px;
-            margin-top: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-container {
-            max-width: 100%;
-            margin: auto;
-        }
-        .row-cols-md-4>.col-md-3 {
-            padding: 5px;
-        }
-        .form-group label {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="css/Commons.css" rel="stylesheet" type="text/css"/>
+    <link href="css/BaseMenuStyle.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">    
+    <link href="css/inventario.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <div id="menu-container">
-        [Menu]
+        <!-- Menú se cargará aquí -->
     </div>
     <div class="container">
         <h2>Gestión de Productos</h2>
@@ -119,8 +105,7 @@
                 <!-- Botones para guardar y cancelar -->
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
-                        <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
+                        <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>                        
                     </div>
                 </div>
             </form>
@@ -153,5 +138,6 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="js/Inventario.js" type="text/javascript"></script>
     <script src="js/CategoriasProducto.js" type="text/javascript"></script>
+    <script src="js/Menu.js" type="text/javascript"></script> <!-- Asegúrate de cargar el script aquí -->
 </body>
 </html>
