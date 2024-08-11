@@ -28,6 +28,15 @@
                 </button>
             </div>
             <div class="modal-body">
+               <!-- Spinner de carga -->
+                <div id="loginSpinner" style="display:none;" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p class="mt-2">Cargando...</p>
+                </div>
+                
+                <!-- Formulario de inicio de sesión -->
                 <form>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
@@ -37,7 +46,9 @@
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                    
+                    <button type="button" class="btn btn-primary btn-block" id="btnLogin" onclick="ValidarUsuario()">Iniciar Sesión</button>
+
                     <div class="text-center mt-3">
                         <a id="btnOlvidoContraseña" href="#" class="btn btn-link">¿Olvidó su contraseña?</a>
                     </div>
@@ -56,5 +67,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/Login.js" type="text/javascript"></script>
 </body>
 </html>

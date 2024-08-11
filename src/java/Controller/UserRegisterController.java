@@ -57,7 +57,7 @@ public class UserRegisterController extends HttpServlet {
         String fechaNacimientoStr = request.getParameter("fechaNacimiento");
         clienteDTO.setFechaNacimiento(fechaNacimientoStr != null ? java.sql.Date.valueOf(fechaNacimientoStr) : null);
 
-        clienteDTO.setCorreoElectronico(request.getParameter("email"));
+        clienteDTO.setCorreoElectronico(request.getParameter("email").toLowerCase());
         clienteDTO.setContrasena(request.getParameter("contrasena"));
         clienteDTO.setNumeroTelefono(request.getParameter("numeroTelefono"));
 
