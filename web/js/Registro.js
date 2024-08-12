@@ -328,6 +328,7 @@ function validarFormulario() {
         $.ajax({
             url: '/Artavia_Racing/UserRegisterController', // URL del servlet
             type: 'POST',
+            async: false, // Esto hace que la llamada sea sincrónica
             data: {
                 credencialId: credencialId,
                 nombre: nombre,
