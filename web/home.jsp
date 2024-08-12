@@ -16,48 +16,7 @@
     <link href="css/BaseMenuStyle.css" rel="stylesheet" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     <style>
-        .carousel-item img {
-            height: 500px;
-            object-fit: cover;
-            width: 100%;
-        }
-        .section-title {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .card-deck .card {
-            margin-bottom: 20px;
-        }
-        .contact-section {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #f8f9fa;
-        }
-        .footer {
-            background-color: #343a40;
-            color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        
-        /* Asegura que el menú esté por encima del carrusel */
-        #menu-container {
-            position: relative;
-            z-index: 1000; /* Asegura que esté por encima del carrusel */
-        }
-
-        /* Asegura que el carrusel no interfiera con el menú */
-        
-        
-        .dropdown-menu {
-            z-index: 1001; /* Asegura que los submenús se muestren por encima del carrusel */
-        }
-    </style>
+    <link href="css/home.css" rel="stylesheet" type="text/css"/>
     <script src="js/Menu.js" type="text/javascript"></script>
 </head>
 <body>
