@@ -14,8 +14,8 @@ import java.sql.SQLException;
 public class ConnectionDA {
     private Connection con;
     private final String url = "jdbc:oracle:thin:@localhost:1521:orcl"; //  URL of full connection.
-    private final String user = "ARTAVIARACING"; // User of connection.
-    private final String password = "12345"; //Contraseña of connection.
+    private final String user = "ARTAVIA_RACING"; // User of connection.
+    private final String password = "123456"; //Contraseña of connection.
    /**
     * AR-001
     * @Author Andrés Alvarado Matamoros

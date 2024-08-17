@@ -28,6 +28,7 @@ public class CitaController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ICitaBL citaBL = new CitaBL();
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
@@ -51,9 +52,24 @@ public class CitaController extends HttpServlet {
                 cancelarCita(request, response);
                 break;
             case "list":
+                listarCitas(request, response);
+                break;
+            case "ver":
+                mostrarDetallesCita(request, response);
+                break;
             default:
                 listarCitas(request, response);
                 break;
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if ("agregarDiagnostico".equals(action)) {
+            agregarDiagnostico(request, response);
+        } else if ("actualizarCita".equals(action)) {
+            actualizarCita(request, response);
         }
     }
 
@@ -77,12 +93,11 @@ public class CitaController extends HttpServlet {
         String Descripcion = request.getParameter("descripcion");
         String HoraAgendada = request.getParameter("horaAgendada");
         String HoraFinalizacion = request.getParameter("horaFinalizacion");
-        String fechaStr = request.getParameter("fecha");
 
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             java.util.Date fechaAgendada = format.parse(FechaAgendadaSrt);
-            CitaDTO nuevaCita = new CitaDTO(0, CredencialId, PlacaVehiculoId, VIN, ServicioId, EstadoCitaId, (Date) fechaAgendada, Descripcion, HoraAgendada, HoraFinalizacion);
+            CitaDTO nuevaCita = new CitaDTO(0, CredencialId, PlacaVehiculoId, VIN, ServicioId, EstadoCitaId, new java.sql.Date(fechaAgendada.getTime()), Descripcion, HoraAgendada, HoraFinalizacion);
             citaBL.agregarCita(nuevaCita);
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,12 +124,11 @@ public class CitaController extends HttpServlet {
         String Descripcion = request.getParameter("descripcion");
         String HoraAgendada = request.getParameter("horaAgendada");
         String HoraFinalizacion = request.getParameter("horaFinalizacion");
-        String fechaStr = request.getParameter("fecha");
 
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             java.util.Date fechaAgendada = format.parse(FechaAgendadaSrt);
-            CitaDTO cita = new CitaDTO(CitaId, CredencialId, PlacaVehiculoId, VIN, ServicioId, EstadoCitaId, (Date) fechaAgendada, Descripcion, HoraAgendada, HoraFinalizacion);
+            CitaDTO cita = new CitaDTO(CitaId, CredencialId, PlacaVehiculoId, VIN, ServicioId, EstadoCitaId, new java.sql.Date(fechaAgendada.getTime()), Descripcion, HoraAgendada, HoraFinalizacion);
             citaBL.actualizarCita(cita);
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,6 +140,20 @@ public class CitaController extends HttpServlet {
     private void cancelarCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCita = Integer.parseInt(request.getParameter("id"));
         citaBL.cancelarCita(idCita);
+        response.sendRedirect("CitaController?action=list");
+    }
+
+    private void mostrarDetallesCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int idCita = Integer.parseInt(request.getParameter("id"));
+        CitaDTO cita = citaBL.obtenerCitaPorId(idCita);
+        request.setAttribute("cita", cita);
+        request.getRequestDispatcher("verCita.jsp").forward(request, response);
+    }
+
+    private void agregarDiagnostico(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int idCita = Integer.parseInt(request.getParameter("id"));
+        String diagnostico = request.getParameter("diagnostico");
+        citaBL.agregarDiagnostico(idCita, diagnostico);
         response.sendRedirect("CitaController?action=list");
     }
 }

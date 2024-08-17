@@ -48,5 +48,10 @@ public class CitaBL implements ICitaBL {
         return citaDA.obtenerCitaPorId(idCita);
     }
 
+    @Override
+    public void agregarDiagnostico(int idCita, String diagnostico) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 }

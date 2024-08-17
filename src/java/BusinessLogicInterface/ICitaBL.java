@@ -22,5 +22,7 @@ public interface ICitaBL {
     List<CitaDTO> listarCitas();
     
     CitaDTO obtenerCitaPorId(int idCita);
+
+    public void agregarDiagnostico(int idCita, String diagnostico);
     
 }

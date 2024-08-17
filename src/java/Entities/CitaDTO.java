@@ -150,5 +150,9 @@ public class CitaDTO {
     public void setFechaCreacion(Date FechaCreacion) {
         this.FechaCreacion = FechaCreacion;
     }
+
+    public void setDiagnostico(String diagnostico) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
