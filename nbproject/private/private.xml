@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/web/css/BaseMenuStyle.css</file>
-            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/web/Registro.jsp</file>
-            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/src/java/Controller/UserRegisterController.java</file>
-            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/web/js/Registro.js</file>
+            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/src/java/DataAccess/BaseConnectionDA.java</file>
+            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/src/java/DataAccess/ConnectionDA.java</file>
             <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/web/Login.jsp</file>
-            <file>file:/C:/InternetSites/Artavia_Racing/Artavia_Racing/web/css/Commons.css</file>
         </group>
     </open-files>
 </project-private>
