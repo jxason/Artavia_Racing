@@ -2,8 +2,6 @@ package DataAccess;
 
 import DataAccessInterface.ICountryDA;
 import Entities.CountryDTO;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class CountryDA extends BaseConnectionDA implements ICountryDA {
             }
 
             callableStatements = connections.prepareCall("{call USP_SeleccionarPaises(?)}");
-            callableStatements.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
 
             resultSets = (ResultSet) callableStatements.getObject(1);
@@ -41,7 +39,7 @@ public class CountryDA extends BaseConnectionDA implements ICountryDA {
                 lista.add(dto);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error fetching countries", e);
+            logger.log(Level.SEVERE, "Error fetching countries" + e.getMessage(), e);
         } finally {
             closeResources();
         }

@@ -41,7 +41,7 @@ public class StateDA extends BaseConnectionDA implements IStateDA
             // Preparar el procedimiento almacenado
             callableStatements = connections.prepareCall("{call USP_SeleccionarEstados(?,?)}");
             callableStatements.setInt(1, CodigoPais);
-            callableStatements.registerOutParameter(2, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
 
             // Ejecutar el procedimiento almacenado
             callableStatements.execute();

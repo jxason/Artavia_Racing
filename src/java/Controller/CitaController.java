@@ -6,7 +6,6 @@ package Controller;
 
 import BusinessLogic.CitaBL;
 import BusinessLogicInterface.ICitaBL;
-import DataAccess.CitaDA;
 import Entities.CitaDTO;
 import java.io.IOException;
 import java.sql.Date;
@@ -60,11 +59,11 @@ public class CitaController extends HttpServlet {
     private void listarCitas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<CitaDTO> listaCitas = citaBL.listarCitas();
         request.setAttribute("listaCitas", listaCitas);
-        request.getRequestDispatcher("cita-list.jsp").forward(request, response);
+        request.getRequestDispatcher("CitaLista.jsp").forward(request, response);
     }
 
     private void mostrarFormulario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("cita-form.jsp").forward(request, response);
+        request.getRequestDispatcher("CitaForm.jsp").forward(request, response);
     }
 
     private void insertarCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -95,7 +94,7 @@ public class CitaController extends HttpServlet {
         int idCita = Integer.parseInt(request.getParameter("id"));
         CitaDTO cita = citaBL.obtenerCitaPorId(idCita);
         request.setAttribute("cita", cita);
-        request.getRequestDispatcher("cita-form.jsp").forward(request, response);
+        request.getRequestDispatcher("CitaForm.jsp").forward(request, response);
     }
 
     private void actualizarCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

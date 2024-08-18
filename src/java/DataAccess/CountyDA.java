@@ -41,7 +41,7 @@ public class CountyDA extends BaseConnectionDA implements ICountyDA
             // Preparar el procedimiento almacenado
             callableStatements = connections.prepareCall("{call USP_SeleccionarCondado(?,?)}");
             callableStatements.setInt(1, CodigoEstado);
-            callableStatements.registerOutParameter(2, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
 
             // Ejecutar el procedimiento almacenado
             callableStatements.execute();
