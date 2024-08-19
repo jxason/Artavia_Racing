@@ -8,57 +8,62 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title><c:out value="${cita == null ? 'Nueva Cita' : 'Editar Cita'}" /> - Artavia Racing</title>
-    <style>
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        input[type="text"], textarea, input[type="date"], select {
-            width: 100%;
-            padding: 8px;
-            margin: 4px 0;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <h1><c:out value="${cita == null ? 'Nueva Cita' : 'Editar Cita'}" /></h1>
-    <form action="CitaController" method="post">
-        <input type="hidden" name="action" value="${cita == null ? 'insert' : 'update'}">
-        <c:if test="${cita != null}">
-            <input type="hidden" name="id" value="${cita.id}">
-        </c:if>
+    <head>
+        <meta charset="UTF-8">
+        <title><c:out value="${cita == null ? 'Nueva Cita' : 'Editar Cita'}" /> - Artavia Racing</title>
+
+        <!-- Estilos CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="css/Commons.css" rel="stylesheet" type="text/css"/>
+        <link href="css/BaseMenuStyle.css" rel="stylesheet" type="text/css"/>
+        <link href="css/citaForm.css" rel="stylesheet" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">  
+    </head>
+    <body>
+        <div id="menu-container">
+            <!-- Menú se cargará aquí -->
+        </div>
         
-        <label for="nombreCliente">Nombre del Cliente:</label>
-        <input type="text" id="nombreCliente" name="nombreCliente" value="${cita != null ? cita.nombreCliente : ''}" required>
+        <div class="main-container">
+        <h1><c:out value="${cita == null ? 'Nueva Cita' : 'Editar Cita'}" /></h1>
+        <form action="CitaController" method="post">
+            <input type="hidden" name="action" value="${cita == null ? 'insert' : 'update'}">
+            <c:if test="${cita != null}">
+                <input type="hidden" name="id" value="${cita.id}">
+            </c:if>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" required>${cita != null ? cita.descripcion : ''}</textarea>
+            <label for="placaVehiculo">Número de Placa del Vehiculo</label>
+            <input type="text" id="placaVehiculo" name="placaVehiculo" value="${cita != null ? cita.placaVehiculo : ''}" required>
 
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" value="${cita != null ? cita.fecha : ''}" required>
-
-        <label for="estado">Estado:</label>
-        <select id="estado" name="estado">
-            <option value="Agendada" ${cita != null && cita.estado == 'Agendada' ? 'selected' : ''}>Agendada</option>
-            <option value="Completada" ${cita != null && cita.estado == 'Completada' ? 'selected' : ''}>Completada</option>
-            <option value="Cancelada" ${cita != null && cita.estado == 'Cancelada' ? 'selected' : ''}>Cancelada</option>
-        </select>
-
-        <input type="submit" value="${cita == null ? 'Agregar Cita' : 'Actualizar Cita'}">
-    </form>
-</body>
+            <!-- Campo para categoría del servicio -->
+                <div class="form-group">
+                    <label for="codigoCategoriaServicio">Categoría de Servicio</label>
+                    <select class="form-control" id="codigoCategoriaServicio">
+                        <option value="">Seleccione una categoría</option>
+                    </select>
+                    <label id="errorCodigoCategoriaServicio" class="text-danger"></label>
+                </div>
+            
+            <!-- Campo para servicio en base a la categoría -->
+            <div class="form-group">
+                <label for="codigoServicio">Servicio</label>
+                <select class="form-control" id="codigoServicio">
+                    <option value="">Seleccione un servicio</option>
+                </select>
+                <label id="errorCodigoServicio" class="text-danger"></label>
+            </div>
+            
+            <input type="submit" value="${cita == null ? 'Agregar Cita' : 'Actualizar Cita'}">
+        </form>
+        <!-- Scripts JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="js/Menu.js" type="text/javascript"></script>
+        <script src="js/CitaForm.js" type="text/javascript"></script>
+        </div>
+    </body>
 </html>

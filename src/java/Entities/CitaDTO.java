@@ -7,8 +7,9 @@ package Entities;
 import java.sql.Date;
 
 /**
- *
- * @author: Horacio Porras
+ * AR-003
+ * @Author: Horacio Porras Marín
+ * Clase Objeto encargado de obtener las citas
  */
 public class CitaDTO {
 

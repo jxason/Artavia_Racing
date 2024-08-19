@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
 
@@ -18,15 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author: Horacio Porras
+ * AR-003
+ * @author Horacio Porras
+ * Servlet para el manejo de citas. 
+ * Este servlet gestiona las solicitudes GET para obtener datos de las citas.
  */
-@WebServlet("/CitaController")
+@WebServlet(name = "CitaController", urlPatterns = {"/CitaController"})
 public class CitaController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private ICitaBL citaBL = new CitaBL();
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {

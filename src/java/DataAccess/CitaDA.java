@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author: Horacio Porras
+ * AR-003
+ * @Author: Horacio Porras Marín 
+ * Clase encargada de administrar las citas
  */
 public class CitaDA extends BaseConnectionDA implements ICitaDA {
 
