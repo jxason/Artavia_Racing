@@ -26,6 +26,7 @@
             <!-- Menú se cargará aquí -->
         </div>
         
+        
         <div class="main-container">
         <h1><c:out value="${cita == null ? 'Nueva Cita' : 'Editar Cita'}" /></h1>
         <form action="CitaController" method="post">
