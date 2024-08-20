@@ -35,7 +35,7 @@ public class TelefonoDA extends BaseConnectionDA implements ITelefonoDA{
             }
             
             callableStatements = connections.prepareCall("{call USP_SeleccionarTipoTelefono(?)}");
-            callableStatements.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
             
               // Obtener el cursor de resultados

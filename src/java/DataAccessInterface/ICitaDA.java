@@ -8,8 +8,9 @@ import Entities.CitaDTO;
 import java.util.List;
 
 /**
- *
- * @author: Horacio Porras
+ * AR-003
+ * @Author: Horacio Porras Marín
+ * Interface encargada de administrar las citas
  */
 public interface ICitaDA {
     

@@ -4,33 +4,28 @@
  */
 package DataAccess;
 
-import DataAccessInterface.ICountyDA;
-import Entities.CountyDTO;
-import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
+import DataAccessInterface.IServicioDA;
+import Entities.ServicioDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-
+import java.util.logging.Logger;
 
 /**
- * AR-001
- * Author: Andrés Alvarado Matamoros
- * Clase encargada de administrar informacion del condado de los estados.
+ * AR-003
+ * @Author: Horacio Porras Marín
+ * Clase encargada de administrar los servicios
  */
-public class CountyDA extends BaseConnectionDA implements ICountyDA
-{
-   /**
-    * AR-001
-    * Author: Andrés Alvarado Matamoros
-    * Metodo encargado de obtener toda la informacion del Estado de los paises.
-    * @param CodigoEstado    
-    * @return 
-    */
+public class ServicioDA extends BaseConnectionDA implements IServicioDA {
+
+    private static final Logger logger = Logger.getLogger(ServicioDA.class.getName());
+
     @Override
-    public List<CountyDTO> GetAll(int CodigoEstado) {
-        List<CountyDTO> lista = new ArrayList<>();   
+    public List<ServicioDTO> GetBy(int CodigoCategoriaServicio) {
+        List<ServicioDTO> lista = new ArrayList<>();
+        
         try {
             // Establecer la conexión
             connections = conectionDA.Get();
@@ -39,8 +34,8 @@ public class CountyDA extends BaseConnectionDA implements ICountyDA
             }
 
             // Preparar el procedimiento almacenado
-            callableStatements = connections.prepareCall("{call USP_SeleccionarCondado(?,?)}");
-            callableStatements.setInt(1, CodigoEstado);
+            callableStatements = connections.prepareCall("{call USP_SeleccionarServicio(?,?)}");
+            callableStatements.setInt(1, CodigoCategoriaServicio);
             callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
 
             // Ejecutar el procedimiento almacenado
@@ -51,13 +46,15 @@ public class CountyDA extends BaseConnectionDA implements ICountyDA
 
             // Procesar los resultados
             while (resultSets.next()) {
-                CountyDTO dto = new CountyDTO();
-                dto.setCodigoCondado(resultSets.getInt("CODIGOCONDADO"));
-                dto.setNombreCondado(resultSets.getString("NOMBRE"));
+                ServicioDTO dto = new ServicioDTO();
+                dto.setCodigoServicio(resultSets.getInt("SERVICIOID"));
+                dto.setNombreServicio(resultSets.getString("NOMBRE"));
+                dto.setPrecioServicio(resultSets.getInt("PRECIO"));
+                dto.setTiempoServicio(resultSets.getInt("TIEMPOSERVICIO"));
                 lista.add(dto);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error fetching states", e);
+            logger.log(Level.SEVERE, "Error fetching services", e);
         } finally {
             // Cerrar recursos
             try {
@@ -68,8 +65,8 @@ public class CountyDA extends BaseConnectionDA implements ICountyDA
                 logger.log(Level.SEVERE, "Error closing resources", e);
             }
         }
-
+        
         return lista;
     }
-    
+
 }

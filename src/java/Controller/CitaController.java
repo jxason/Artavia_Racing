@@ -1,12 +1,11 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
 
 import BusinessLogic.CitaBL;
 import BusinessLogicInterface.ICitaBL;
-import DataAccess.CitaDA;
 import Entities.CitaDTO;
 import java.io.IOException;
 import java.sql.Date;
@@ -19,15 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author: Horacio Porras
+ * AR-003
+ * @author Horacio Porras
+ * Servlet para el manejo de citas. 
+ * Este servlet gestiona las solicitudes GET para obtener datos de las citas.
  */
-@WebServlet("/CitaController")
+@WebServlet(name = "CitaController", urlPatterns = {"/CitaController"})
 public class CitaController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private ICitaBL citaBL = new CitaBL();
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
@@ -60,11 +62,11 @@ public class CitaController extends HttpServlet {
     private void listarCitas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<CitaDTO> listaCitas = citaBL.listarCitas();
         request.setAttribute("listaCitas", listaCitas);
-        request.getRequestDispatcher("cita-list.jsp").forward(request, response);
+        request.getRequestDispatcher("CitaLista.jsp").forward(request, response);
     }
 
     private void mostrarFormulario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("cita-form.jsp").forward(request, response);
+        request.getRequestDispatcher("CitaForm.jsp").forward(request, response);
     }
 
     private void insertarCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -95,7 +97,7 @@ public class CitaController extends HttpServlet {
         int idCita = Integer.parseInt(request.getParameter("id"));
         CitaDTO cita = citaBL.obtenerCitaPorId(idCita);
         request.setAttribute("cita", cita);
-        request.getRequestDispatcher("cita-form.jsp").forward(request, response);
+        request.getRequestDispatcher("CitaForm.jsp").forward(request, response);
     }
 
     private void actualizarCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -37,8 +37,8 @@ public class UsuarioDA extends BaseConnectionDA implements IUsuarioDA
             callableStatements.setString(2, requestDTO.getContrasena());
 
             // Registra los parámetros de salida
-            callableStatements.registerOutParameter(3, java.sql.Types.VARCHAR);
-            callableStatements.registerOutParameter(4, java.sql.Types.NUMERIC);
+            callableStatements.registerOutParameter(3, oracle.jdbc.OracleTypes.VARCHAR);
+            callableStatements.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMERIC);
 
             // Ejecuta el procedimiento almacenado
             callableStatements.execute();
