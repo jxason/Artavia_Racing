@@ -64,7 +64,7 @@ public class ProductoDA extends BaseConnectionDA implements IProductoDA {
             connections = conectionDA.Get();
             callableStatements = connections.prepareCall("{call USP_ObtenerProducto(?, ?)}");
             callableStatements.setInt(1, productoId);
-            callableStatements.registerOutParameter(2, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
 
             try (ResultSet resultSet = (ResultSet) callableStatements.getObject(2)) {
@@ -94,7 +94,7 @@ public class ProductoDA extends BaseConnectionDA implements IProductoDA {
         try {
             connections = conectionDA.Get();
             callableStatements = connections.prepareCall("{call USP_ObtenerTodosProductos(?)}");
-            callableStatements.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
 
             try (ResultSet resultSet = (ResultSet) callableStatements.getObject(1)) {

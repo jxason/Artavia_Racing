@@ -32,7 +32,7 @@ public class GaleriaProductoDA extends BaseConnectionDA implements IGaleriaProdu
         try {
             connections = conectionDA.Get();
             callableStatements = connections.prepareCall("{call SP_Obtener_Imagenes_Activas(?)}");
-            callableStatements.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
 
             try (ResultSet resultSet = (ResultSet) callableStatements.getObject(1)) {

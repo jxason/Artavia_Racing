@@ -37,7 +37,7 @@ public class CategoriaProductoDA extends BaseConnectionDA implements ICategoriaP
             }
 
             callableStatements = connections.prepareCall("{call USP_ObtenerCategoriaProducto(?)}");
-            callableStatements.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatements.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
 
             resultSets = (ResultSet) callableStatements.getObject(1);
