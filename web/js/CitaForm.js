@@ -11,8 +11,7 @@ $(document).ready(function() {
         cargarServicio($(this).val()); // Llamar a la función para cargar servicios
     });
     
-    //cargarVehiculo();
-    //cargarEstadoCita();
+    cargarVehiculo();
 });
 
 /*
@@ -98,30 +97,33 @@ function cargarServicio(codigoCategoriaServicio) {
  */
 function cargarVehiculo() {
     $.ajax({
-        url: '/Artavia_Racing/ServiciosController',
+        url: '/Artavia_Racing/VehiculoPorClienteController',
         type: 'GET',
-        data: { action: 'getServicios' },
+        data: { action: 'getVehiculos' },
         success: function(response) {
-            const servicioSelect = document.getElementById('idServicio');
-            servicioSelect.innerHTML = ''; // Limpiar el contenido existente
+            const vehiculoSelect = document.getElementById('codigoVehiculo');
+            vehiculoSelect.innerHTML = ''; // Limpiar el contenido existente
 
             // Agregar opción por defecto
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
-            defaultOption.textContent = 'Seleccione un servicio';
-            servicioSelect.appendChild(defaultOption);
+            defaultOption.textContent = 'Seleccione un vehiculo';
+            defaultOption.disabled = true; // La opción no será seleccionable
+            defaultOption.hidden = true;   // La opción no será visible en el dropdown
+            defaultOption.selected = true; // Esta opción aparece seleccionada por defecto
+            vehiculoSelect.appendChild(defaultOption);
 
             // Agregar nuevas opciones
-            response.forEach(function(servicio) {
+            response.forEach(function(vehiculo) {
                 const option = document.createElement('option');
-                option.value = servicio.CodigoServicio;
-                option.textContent = servicio.NombreServicio;
-                servicioSelect.appendChild(option);
+                option.value = vehiculo.CodigoVehiculo;
+                option.textContent = vehiculo.NombreVehiculo;
+                vehiculoSelect.appendChild(option);
             });
         },
         error: function(xhr, status, error) {
-            console.error('Error al cargar los servicios:', error);
-            alert('Hubo un error al cargar la lista de servicios.');
+            console.error('Error al cargar los vehiculos:', error);
+            alert('Hubo un error al cargar la lista de vehiculos.');
         }
     });
 }

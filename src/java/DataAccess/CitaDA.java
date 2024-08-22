@@ -86,7 +86,7 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
     List<CitaDTO> citas = new ArrayList<>();
         try {
             connections = conectionDA.Get();
-            callableStatements = connections.prepareCall("{call USP_LISTAR_CITAS()}");
+            callableStatements = connections.prepareCall("{call USP_LISTAR_CITAS(?, ?)}");
             ResultSet rs = callableStatements.executeQuery();
             while (rs.next()) {
                 CitaDTO cita = new CitaDTO();
