@@ -4,8 +4,7 @@
     Author     : Horacio Porras
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -33,9 +32,15 @@
             <c:if test="${cita != null}">
                 <input type="hidden" name="id" value="${cita.id}">
             </c:if>
-
-            <label for="placaVehiculo">Número de Placa del Vehiculo</label>
-            <input type="text" id="placaVehiculo" name="placaVehiculo" value="${cita != null ? cita.placaVehiculo : ''}" required>
+            
+            <!-- Campo para vehiculos del usuario -->
+                <div class="form-group">
+                    <label for="codigoVehiculo">Mi Vehiculo</label>
+                    <select class="form-control" id="codigoVehiculo">
+                        <option value="">Seleccione un vehiculo</option>
+                    </select>
+                    <label id="errorCodigoVehiculo" class="text-danger"></label>
+                </div>
 
             <!-- Campo para categoría del servicio -->
                 <div class="form-group">
