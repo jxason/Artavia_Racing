@@ -5,21 +5,28 @@
 package Controller;
 
 import BusinessLogic.CitaBL;
+import BusinessLogic.SessionBL;
 import BusinessLogicInterface.ICitaBL;
 import Entities.CitaDTO;
+import Entities.Enums.TypeSessions;
+import Entities.SessionDTO;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * AR-003
- * @author Horacio Porras
+ * @Author Horacio Porras Marin
  * Servlet para el manejo de citas. 
  * Este servlet gestiona las solicitudes GET para obtener datos de las citas.
  */
@@ -28,7 +35,67 @@ public class CitaController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private ICitaBL citaBL = new CitaBL();
+    private SessionBL sessionBL = new SessionBL();
+ 
+    
+     /**
+     * AR-009
+     * @Author Horacio Porras Marin
+     * Este método recupera los datos del formulario enviados a través de una solicitud HTTP POST, 
+     * asigna los valores a un objeto {@link CitaDTO}. 
+     * Parsea y convierte los datos según sea necesario, incluyendo el manejo de campos opcionales y valores predeterminados.
+     *
+     * @param request el objeto HttpServletRequest que contiene la solicitud realizada
+     * @param response el objeto HttpServletResponse que contiene la respuesta que el servlet devuelve
+     * @throws ServletException si ocurre un error específico del servlet
+     * @throws IOException si ocurre un error de entrada/salida al escribir la respuesta
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Crear una instancia del DTO y asignar los valores directamente
+        CitaDTO citaDTO = new CitaDTO();
+        
+        HttpSession httpSession = request.getSession(); // Obtener la sesión HTTP
+                SessionDTO session = sessionBL.Get(httpSession, TypeSessions.SESSION_USER);        
+                if (session == null) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User session is not valid.");
+                    return;
+                }
+                String CredentialID = session.getCredential();
+        
+        citaDTO.setCredencialId(CredentialID);
+        citaDTO.setPlacaVehiculoId(request.getParameter("placaVehiculoId"));
+        citaDTO.setVIN(request.getParameter("vin"));
+        
+        citaDTO.setServicioId(parseIntOrDefault(request.getParameter("servicioId"),0));
+        
+        citaDTO.setDescripcion(request.getParameter("descripcion"));
+        
+        // Obtiene la hora actual
+        LocalTime ahora = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm"); // Formatea la hora a HH:MM
+        String horaActual = ahora.format(formatter);
+        citaDTO.setHoraAgendada(horaActual);
+        
+        citaDTO.setHoraFinalizacion(request.getParameter("horaFinalizacion"));
 
+        citaBL.agregarCita(citaDTO);
+    }
+    
+     /**
+     * AR-001
+     * @Author Andrés Alvarado Matamoros
+     *  Método auxiliar para convertir una cadena a un entero, con valor predeterminado en caso de error o si es nulo    
+     */    
+    private int parseIntOrDefault(String value, int defaultValue) {
+        try {
+            return value != null ? Integer.parseInt(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

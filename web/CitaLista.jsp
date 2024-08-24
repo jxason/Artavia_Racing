@@ -17,6 +17,7 @@
         <link href="css/Commons.css" rel="stylesheet" type="text/css"/>
         <link href="css/BaseMenuStyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/citaLista.css" rel="stylesheet" type="text/css"/>
+        <link href="css/citaForm.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">    
@@ -26,14 +27,13 @@
             <!-- Menú se cargará aquí -->
         </div>
 
-
         <div class="main-container">
             <h1>Mis Citas</h1>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary">
-                        <a href="CitaController?action=new" style="color: white !important; text-decoration: none;">Agendar Nueva Cita</a>
-                    </button>                        
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#citaModal" style="color: white;">
+                        Agendar Nueva Cita
+                    </button>
                 </div>
             </div>
             <br>
@@ -53,8 +53,11 @@
                     <!-- Las filas se llenarán con jQuery/AJAX -->
                 </tbody>
             </table>
+            <jsp:include page="CitaForm.jsp" />
             <!-- Scripts JavaScript -->
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
             <script src="js/Menu.js" type="text/javascript"></script>
             <script src="js/CitaLista.js" type="text/javascript"></script>
