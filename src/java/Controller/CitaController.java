@@ -70,6 +70,10 @@ public class CitaController extends HttpServlet {
         
         citaDTO.setServicioId(parseIntOrDefault(request.getParameter("servicioId"),0));
         
+        // Convertir la fecha agendada si está presente
+        String fechaAgendadaStr = request.getParameter("fechaAgendada");
+        citaDTO.setFechaAgendada(fechaAgendadaStr != null ? java.sql.Date.valueOf(fechaAgendadaStr) : null);
+        
         citaDTO.setDescripcion(request.getParameter("descripcion"));
         
         // Obtiene la hora actual

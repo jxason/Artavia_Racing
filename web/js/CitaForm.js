@@ -140,6 +140,7 @@ function validarFormulario() {
     // Obtener los valores de los campos del formulario
     const placaVehiculoId = document.getElementById('codigoVehiculo').value;
     const servicioId = document.getElementById('codigoServicio').value;
+    const fechaAgendada = document.getElementById('fechaAgendada').value.trim();
     const descripcion = document.getElementById('descripcion').value.trim();
 
     // Limpiar mensajes de error
@@ -155,6 +156,12 @@ function validarFormulario() {
     // Validación de servicio
     if (servicioId === '') {
         document.getElementById('errorServicioId').textContent = 'El servicio es obligatorio.';
+        esValido = false;
+    }
+    
+    // Validación de fecha agendada
+    if (fechaAgendada === '') {
+        document.getElementById('errorFechaAgendada').textContent = 'La fecha es obligatoria.';
         esValido = false;
     }
 
@@ -173,6 +180,7 @@ function validarFormulario() {
             data: {
                 placaVehiculoId: placaVehiculoId,
                 servicioId: servicioId,
+                fechaAgendada: fechaAgendada,
                 descripcion: descripcion
             },
             success: function(response) {

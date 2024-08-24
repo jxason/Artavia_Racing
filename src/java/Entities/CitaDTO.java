@@ -19,7 +19,7 @@ public class CitaDTO {
     private String VIN;
     private int ServicioId;
     private String Descripcion;
-    private Date FechaAgendada  = new Date(System.currentTimeMillis()); // Valor predeterminado;
+    private Date FechaAgendada;
     private String HoraAgendada;
     private String HoraFinalizacion;
 

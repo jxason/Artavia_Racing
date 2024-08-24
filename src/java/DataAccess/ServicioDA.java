@@ -47,8 +47,11 @@ public class ServicioDA extends BaseConnectionDA implements IServicioDA {
             // Procesar los resultados
             while (resultSets.next()) {
                 ServicioDTO dto = new ServicioDTO();
+                int precio = resultSets.getInt("PRECIO");
+                int tiempo = resultSets.getInt("TIEMPOSERVICIO");
+                String mensajePersonalizado = tiempo == 1? Integer.toString(tiempo) + " hora":Integer.toString(tiempo) + " horas";
                 dto.setCodigoServicio(resultSets.getInt("SERVICIOID"));
-                dto.setNombreServicio(resultSets.getString("NOMBRE"));
+                dto.setNombreServicio(resultSets.getString("NOMBRE") + " | Precio: " + "₡" + Integer.toString(precio)  + " | Tiempo Estimado: " + mensajePersonalizado);
                 dto.setPrecioServicio(resultSets.getInt("PRECIO"));
                 dto.setTiempoServicio(resultSets.getInt("TIEMPOSERVICIO"));
                 lista.add(dto);

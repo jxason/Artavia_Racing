@@ -60,6 +60,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="fechaAgendada">Fecha de la Cita</label>
+                                <input type="date" class="form-control" id="fechaAgendada">
+                                <label id="errorFechaAgendada" class="text-danger"></label>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="descripcion">Descripción</label>
                                 <textarea class="form-control" id="descripcion" placeholder="Ingrese la descripción" rows="3"></textarea>
                                 <label id="errorDescripcion" class="text-danger"></label>
