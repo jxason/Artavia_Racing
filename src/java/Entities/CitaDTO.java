@@ -18,13 +18,13 @@ public class CitaDTO {
     private String PlacaVehiculoId;
     private String VIN;
     private int ServicioId;
-    private int EstadoCitaId;
-    private Date FechaAgendada;
     private String Descripcion;
+    private Date FechaAgendada;
     private String HoraAgendada;
     private String HoraFinalizacion;
 
     // Propiedades predeterminadas
+    private int EstadoCitaId = 1; // Valor predeterminado
     private String EditadoPor = "000000001"; // Valor predeterminado
     private int Habilitado = 1; // Valor predeterminado
     private Date FechaCreacion = new Date(System.currentTimeMillis()); // Valor predeterminado

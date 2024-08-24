@@ -23,7 +23,7 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
     public boolean agregarCita(CitaDTO cita) {
         try {
             connections = conectionDA.Get();
-            callableStatements = connections.prepareCall("{call USP_AGREGAR_CITA(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            callableStatements = connections.prepareCall("{call USP_AGREGAR_CITA(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
             callableStatements.setString(1, cita.getCredencialId());
             callableStatements.setString(2, cita.getPlacaVehiculoId());
             callableStatements.setString(3, cita.getVIN());
@@ -32,7 +32,8 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
             callableStatements.setDate(6, new java.sql.Date(cita.getFechaAgendada().getTime()));
             callableStatements.setString(7, cita.getDescripcion());
             callableStatements.setString(8, cita.getHoraAgendada());
-            callableStatements.setString(9, cita.getHoraFinalizacion());
+            callableStatements.setString(9, cita.getEditadoPor());
+            callableStatements.setInt(10, cita.getHabilitado());
             callableStatements.execute();
             return true;
         } catch (SQLException e) {
