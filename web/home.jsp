@@ -23,7 +23,7 @@
     <div id="menu-container">
         <!-- Menú se cargará aquí -->
     </div>
-    
+
        <!-- Carrusel de Imágenes -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
