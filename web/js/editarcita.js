@@ -12,7 +12,6 @@ $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const citaId = urlParams.get('id');
     
-
     if (citaId) {
         // Solicitar información de la cita al servidor
         $.ajax({
@@ -36,7 +35,7 @@ $(document).ready(function() {
                   // Convertir el string de fecha a un objeto Date
                 var fechaString = data.FechaAgendada;
 
-               // Mapeo de meses en español a su número correspondiente
+                // Mapeo de meses en español a su número correspondiente
                 var meses = {
                     "ene": "01",
                     "feb": "02",
@@ -67,7 +66,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.error('Error al obtener la información de la cita:', error);
-                alert('Error al cargar la información de la cita.');
+                toastr.error('Error al cargar la información de la cita.');
             }
         });
     }
@@ -84,15 +83,15 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 if (data.success) {
-                    alert('Cita actualizada con éxito');
+                    toastr.success('Cita actualizada con éxito');
                     window.location.href = 'listarCitas.jsp';
                 } else {
-                    alert('Error al actualizar la cita');
+                    toastr.error('Error al actualizar la cita');
                 }
             },
             error: function(xhr, status, error) {
                 console.error('Error al actualizar la cita:', error);
-                alert('Error al actualizar la cita.');
+                toastr.error('Error al actualizar la cita.');
             }
         });
     });
@@ -109,15 +108,15 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(data) {
                     if (data.success) {
-                        alert('Cita eliminada con éxito');
+                        toastr.success('Cita eliminada con éxito');
                         window.location.href = 'listarCitas.jsp';
                     } else {
-                        alert('Error al eliminar la cita');
+                        toastr.error('Error al eliminar la cita');
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al eliminar la cita:', error);
-                    alert('Error al eliminar la cita.');
+                    toastr.error('Error al eliminar la cita.');
                 }
             });
         }

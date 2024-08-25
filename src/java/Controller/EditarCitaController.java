@@ -12,10 +12,7 @@ import Entities.DiagnosticoDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,63 +61,63 @@ public class EditarCitaController extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if ("save".equals(action)) {
-            try {
-                // Obtener los parámetros del formulario
-                int citaId = Integer.parseInt(request.getParameter("citaId"));
-                String Descripcion = request.getParameter("credencialId"); // aqui tiene que poner el id del nuevo campo que usted va a crear que se llama descripcion
-                
-                // Crear un objeto CitaDTO con los datos
-                DiagnosticoDTO Request  = new DiagnosticoDTO (citaId,Descripcion );
-                
-                // Actualizar la cita
-                boolean success = citaBL.agregarDiagnostico(Request);
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
+     @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String action = request.getParameter("action");
+    if ("save".equals(action)) {
+        try {
+            // Obtener los parámetros del formulario
+            int citaId = Integer.parseInt(request.getParameter("citaId"));
+            String descripcion = request.getParameter("descripcion"); // Asegúrate que el campo en el formulario tenga el nombre 'descripcion'
 
-                // Enviar una respuesta en formato JSON
-                PrintWriter out = response.getWriter();
-                out.print(new Gson().toJson(new Response(success)));
-                out.flush();
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Formato de datos inválido");
-            }
-        } else if ("delete".equals(action)) {
-            try {
-                int citaId = Integer.parseInt(request.getParameter("citaId"));
-                boolean success = citaBL.eliminarCita(citaId);
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
+            // Crear un objeto DiagnosticoDTO con los datos
+            DiagnosticoDTO diagnosticoRequest = new DiagnosticoDTO(citaId, descripcion);
 
-                // Enviar una respuesta en formato JSON
-                PrintWriter out = response.getWriter();
-                out.print(new Gson().toJson(new Response(success)));
-                out.flush();
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Formato de ID inválido");
-            }
-        } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción no válida");
+            // Guardar el diagnóstico
+            boolean success = citaBL.agregarDiagnostico(diagnosticoRequest);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // Enviar una respuesta en formato JSON
+            PrintWriter out = response.getWriter();
+            out.print(new Gson().toJson(new Response(success)));
+            out.flush();
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Formato de datos inválido");
         }
+    } else if ("delete".equals(action)) {
+        try {
+            int citaId = Integer.parseInt(request.getParameter("citaId"));
+            boolean success = citaBL.eliminarCita(citaId);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // Enviar una respuesta en formato JSON
+            PrintWriter out = response.getWriter();
+            out.print(new Gson().toJson(new Response(success)));
+            out.flush();
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Formato de ID inválido");
+        }
+    } else {
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción no válida");
+    }
+}
+
+private static class Response {
+    private boolean success;
+
+    public Response(boolean success) {
+        this.success = success;
     }
 
-    private static class Response {
-        private boolean success;
-
-        public Response(boolean success) {
-            this.success = success;
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
+    public boolean isSuccess() {
+        return success;
     }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+}
 }

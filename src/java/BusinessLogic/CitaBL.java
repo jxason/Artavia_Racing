@@ -58,8 +58,7 @@ public class CitaBL implements ICitaBL {
     
     @Override
     public boolean agregarDiagnostico(DiagnosticoDTO Request) {
-           return citaDA.agregarDiagnostico( Request);
-    }
-
+    return citaDA.agregarDiagnostico(Request);
+}
     
 }

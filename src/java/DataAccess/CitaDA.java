@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  *
  * @author: Horacio Porras
@@ -142,7 +140,7 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
             connections = conectionDA.Get();
             callableStatements = connections.prepareCall("{call USP_OBTENER_CITA_POR_ID(? , ?)}");
             callableStatements.setInt(1, idCita);
-            callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR  );//oracle.jdbc.OracleTypes.CURSOR           
+            callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
             callableStatements.execute();
 
             try (ResultSet rs = (ResultSet) callableStatements.getObject(2)) {
@@ -156,21 +154,36 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
                     cita.setFechaAgendada(rs.getDate("FECHAAGENDADA"));
                     cita.setDescripcion(rs.getString("DESCRIPCION"));
                     cita.setHoraAgendada(rs.getString("HORAAGENDADA"));              
-                    
-                    
                 }
             }
-           
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cita;
     }
 
-    @Override
-    public boolean agregarDiagnostico(DiagnosticoDTO Request) {
-        //OJO DIAGNOSTICO
-        //Este es el metodo que debe usar usted para guardar el diagnostico, debe ser un salvado a la tabla de diagnostico
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Método para agregar un diagnóstico a una cita
+   @Override
+public boolean agregarDiagnostico(DiagnosticoDTO Request) {
+    String query = "INSERT INTO Diagnostico (IdCita, Diagnostico, CodigoTrabajador, EditadoPor, Habilitado, FechaCreacion) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    try (Connection conn = conectionDA.Get();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        // Usar 'Request' en lugar de 'diagnosticoDTO'
+        stmt.setInt(1, Request.getIdCita());
+        stmt.setString(2, Request.getDiagnostico());
+        stmt.setString(3, Request.getCodigoTrabajador());
+        stmt.setString(4, Request.getEditadoPor());
+        stmt.setInt(5, Request.getHabilitado());
+        stmt.setDate(6, new java.sql.Date(Request.getFechaCreacion().getTime()));
+
+        int rowsInserted = stmt.executeUpdate();
+        return rowsInserted > 0;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
 }
+    }

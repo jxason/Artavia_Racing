@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
+    
 </head>
 <body>
     <div class="container">
         <h2>Editar Cita</h2>
-        <form id="editCitaForm">
+        <form id="editCitaForm" action="EditarCitaController" method="post">
             <input type="hidden" id="citaId" name="citaId" value="${param.id}">
 
             <div class="form-group">
@@ -59,11 +64,17 @@
                 <input type="time" class="form-control" id="horaFinalizacion" name="horaFinalizacion">
             </div>
 
+            <!-- Nuevo campo de diagnóstico -->
+            <div class="form-group">
+    <label for="diagnostico">Diagnóstico:</label>
+    <input type="text" class="form-control" id="diagnostico" name="descripcion" placeholder="Ingrese el diagnóstico">
+</div>
+
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             <button type="button" id="deleteCita" class="btn btn-danger">Eliminar Cita</button>
         </form>
     </div>
             
-            <script src="js/editarcita.js" type="text/javascript"></script>
+    <script src="js/editarcita.js" type="text/javascript"></script>
 </body>
 </html>
