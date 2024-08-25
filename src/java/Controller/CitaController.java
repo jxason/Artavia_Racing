@@ -43,7 +43,7 @@ public class CitaController extends HttpServlet {
                 insertarCita(request, response);
                 break;
             case "edit":
-                mostrarFormularioEdicion(request, response);
+              //  mostrarFormularioEdicion(request, response);
                 break;
             case "update":
                 actualizarCita(request, response);
@@ -55,7 +55,7 @@ public class CitaController extends HttpServlet {
                 listarCitas(request, response);
                 break;
             case "ver":
-                mostrarDetallesCita(request, response);
+             //   mostrarDetallesCita(request, response);
                 break;
             default:
                 listarCitas(request, response);
@@ -66,9 +66,7 @@ public class CitaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if ("agregarDiagnostico".equals(action)) {
-            agregarDiagnostico(request, response);
-        } else if ("actualizarCita".equals(action)) {
+        if ("actualizarCita".equals(action)) {
             actualizarCita(request, response);
         }
     }
@@ -106,12 +104,12 @@ public class CitaController extends HttpServlet {
         response.sendRedirect("CitaController?action=list");
     }
 
-    private void mostrarFormularioEdicion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   /*private void mostrarFormularioEdicion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCita = Integer.parseInt(request.getParameter("id"));
         CitaDTO cita = citaBL.obtenerCitaPorId(idCita);
         request.setAttribute("cita", cita);
         request.getRequestDispatcher("cita-form.jsp").forward(request, response);
-    }
+    }*/
 
     private void actualizarCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int CitaId = Integer.parseInt(request.getParameter("citaId"));
@@ -143,17 +141,10 @@ public class CitaController extends HttpServlet {
         response.sendRedirect("CitaController?action=list");
     }
 
-    private void mostrarDetallesCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /*private void mostrarDetallesCita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCita = Integer.parseInt(request.getParameter("id"));
         CitaDTO cita = citaBL.obtenerCitaPorId(idCita);
         request.setAttribute("cita", cita);
         request.getRequestDispatcher("verCita.jsp").forward(request, response);
-    }
-
-    private void agregarDiagnostico(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int idCita = Integer.parseInt(request.getParameter("id"));
-        String diagnostico = request.getParameter("diagnostico");
-        citaBL.agregarDiagnostico(idCita, diagnostico);
-        response.sendRedirect("CitaController?action=list");
-    }
+    }*/
 }

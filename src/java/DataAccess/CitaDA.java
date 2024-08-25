@@ -5,17 +5,28 @@
 package DataAccess;
 
 import DataAccessInterface.ICitaDA;
+import Entities.CitaAdminDTO;
 import Entities.CitaDTO;
+import Entities.DiagnosticoDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  *
  * @author: Horacio Porras
  */
 public class CitaDA extends BaseConnectionDA implements ICitaDA {
+
+    // Constructor sin parámetros
+    public CitaDA() {
+        super(); // Llama al constructor de la clase base
+    }
 
     // Método para agregar una nueva cita
     @Override
@@ -79,10 +90,26 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
         }
     }
 
+    // Método para eliminar una cita
+    public boolean eliminarCita(int idCita) {
+        String sql = "DELETE FROM Citas WHERE CitaID = ?";
+        
+        try (Connection conn = conectionDA.Get();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idCita);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de errores
+            return false;
+        }
+    }
+
     // Método para listar todas las citas
     @Override
     public List<CitaDTO> listarCitas() {
-    List<CitaDTO> citas = new ArrayList<>();
+        List<CitaDTO> citas = new ArrayList<>();
         try {
             connections = conectionDA.Get();
             callableStatements = connections.prepareCall("{call USP_LISTAR_CITAS()}");
@@ -109,30 +136,41 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
 
     // Método para obtener una cita por su ID
     @Override
-    public CitaDTO obtenerCitaPorId(int idCita) {
-        CitaDTO cita = null;
+    public CitaAdminDTO obtenerCitaPorId(int idCita) {
+        CitaAdminDTO cita = null;
         try {
             connections = conectionDA.Get();
-            callableStatements = connections.prepareCall("{call USP_OBTENER_CITA_POR_ID(?)}");
+            callableStatements = connections.prepareCall("{call USP_OBTENER_CITA_POR_ID(? , ?)}");
             callableStatements.setInt(1, idCita);
-            ResultSet rs = callableStatements.executeQuery();
-            if (rs.next()) {
-                cita = new CitaDTO();
-                cita.setCitaId(rs.getInt("cita_id"));
-                cita.setCredencialId(rs.getString("credencial_id"));
-                cita.setPlacaVehiculoId(rs.getString("placa_vehiculo_id"));
-                cita.setVIN(rs.getString("vin"));
-                cita.setServicioId(rs.getInt("servicio_id"));
-                cita.setEstadoCitaId(rs.getInt("estado_cita_id"));
-                cita.setFechaAgendada(rs.getDate("fecha_agendada"));
-                cita.setDescripcion(rs.getString("descripcion"));
-                cita.setHoraAgendada(rs.getString("hora_agendada"));
-                cita.setHoraFinalizacion(rs.getString("hora_finalizacion"));
+            callableStatements.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR  );//oracle.jdbc.OracleTypes.CURSOR           
+            callableStatements.execute();
+
+            try (ResultSet rs = (ResultSet) callableStatements.getObject(2)) {
+                if (rs.next()) {
+                    cita = new CitaAdminDTO();                    
+                    cita.setCredencialId(rs.getString("CREDENCIALID"));
+                    cita.setPlacaVehiculoId(rs.getString("PLACAVEHICULOID"));
+                    cita.setVIN(rs.getString("VIN"));
+                    cita.setServicioId(rs.getString("SERVICIOVEHICULO"));
+                    cita.setEstadoCitaId(rs.getString("ESTADO"));
+                    cita.setFechaAgendada(rs.getDate("FECHAAGENDADA"));
+                    cita.setDescripcion(rs.getString("DESCRIPCION"));
+                    cita.setHoraAgendada(rs.getString("HORAAGENDADA"));              
+                    
+                    
+                }
             }
+           
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cita;
     }
 
+    @Override
+    public boolean agregarDiagnostico(DiagnosticoDTO Request) {
+        //OJO DIAGNOSTICO
+        //Este es el metodo que debe usar usted para guardar el diagnostico, debe ser un salvado a la tabla de diagnostico
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

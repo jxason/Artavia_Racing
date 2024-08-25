@@ -13,8 +13,8 @@ import java.util.List;
 
 
 public interface IAdminCitaBL {
+    boolean agregarCita(CitaDTO cita);
+    boolean actualizarCita(CitaDTO cita);
+    boolean cancelarCita(int citaId);    
     List<CitaDTO> listarCitas();
-    CitaDTO obtenerCitaPorId(int id);
-    void actualizarCita(CitaDTO cita);
-    void agregarDiagnostico(int idCita, String diagnostico);
 }

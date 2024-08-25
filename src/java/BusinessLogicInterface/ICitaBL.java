@@ -4,7 +4,9 @@
  */
 package BusinessLogicInterface;
 
+import Entities.CitaAdminDTO;
 import Entities.CitaDTO;
+import Entities.DiagnosticoDTO;
 import java.util.List;
 
 /**
@@ -19,10 +21,12 @@ public interface ICitaBL {
     
     boolean cancelarCita(int idCita);
     
+    boolean eliminarCita(int idCita); // Agregar esta línea
+    
     List<CitaDTO> listarCitas();
     
-    CitaDTO obtenerCitaPorId(int idCita);
+    CitaAdminDTO obtenerCitaPorId(int idCita);
 
-    public void agregarDiagnostico(int idCita, String diagnostico);
+    boolean agregarDiagnostico(DiagnosticoDTO Request);
     
 }

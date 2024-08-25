@@ -8,6 +8,8 @@ package BusinessLogic;
  *
  * @author Luis Solorzano Campos
  */
+
+
 import java.util.List;
 import DataAccess.CitaDA;
 import BusinessLogicInterface.IAdminCitaBL;
@@ -22,26 +24,27 @@ public class AdminCitaBL implements IAdminCitaBL {
         this.citaDA = citaDA;
     }
 
-
     @Override
-    public CitaDTO obtenerCitaPorId(int id) {
-        return citaDA.obtenerCitaPorId(id);
+    public boolean agregarCita(CitaDTO cita) {
+        // Asume que CitaDA.agregarCita devuelve un booleano
+        return citaDA.agregarCita(cita);
     }
 
     @Override
-    public void actualizarCita(CitaDTO cita) {
-        citaDA.actualizarCita(cita);
+    public boolean actualizarCita(CitaDTO cita) {
+        // Asume que CitaDA.actualizarCita devuelve un booleano
+        return citaDA.actualizarCita(cita);
     }
 
     @Override
-    public void agregarDiagnostico(int idCita, String diagnostico) {
-        CitaDTO cita = citaDA.obtenerCitaPorId(idCita);
-        cita.setDiagnostico(diagnostico);
-        citaDA.actualizarCita(cita);
+    public boolean cancelarCita(int citaId) {
+        // Asume que CitaDA.cancelarCita devuelve un booleano
+        return citaDA.cancelarCita(citaId);
     }
+
 
     @Override
     public List<CitaDTO> listarCitas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return citaDA.listarCitas();
     }
 }

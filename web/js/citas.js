@@ -8,7 +8,7 @@
 
 
 $(document).ready(function() {
-    $('#citasTable').DataTable({
+    $('#citasTable').DataTable({ 
         "ajax": {
             "url": "/Artavia_Racing/AdminCitaController?method=getAll",
             "dataSrc": "citas"
@@ -20,6 +20,7 @@ $(document).ready(function() {
             { "data": "credencialId" },
             { "data": "servicioId" },
             { "data": "estadoCitaId" },
+            { "data": "placaVehiculoId" }, // Agregar la placa del vehículo
             {
                 "data": null,
                 "render": function(data, type, row) {
@@ -32,7 +33,6 @@ $(document).ready(function() {
         ]
     });
 
-    // Manejo del botón guardar
     $('#btnGuardarCita').on('click', function() {
         const citaId = $('#citaId').val();
         const fechaAgendada = $('#fecha').val();
@@ -40,6 +40,7 @@ $(document).ready(function() {
         const credencialId = $('#cliente').val();
         const servicioId = $('#servicio').val();
         const estadoCitaId = $('#estado').val();
+        const placaVehiculoId = $('#placaVehiculo').val(); // Campo para la placa del vehículo
         const descripcion = $('#descripcion').val(); // Si tienes un campo de descripción
 
         const formData = {
@@ -49,6 +50,7 @@ $(document).ready(function() {
             credencialId: credencialId,
             servicioId: servicioId,
             estadoCitaId: estadoCitaId,
+            placaVehiculoId: placaVehiculoId, // Agregar la placa del vehículo
             descripcion: descripcion
         };
 
@@ -85,6 +87,7 @@ function editCita(citaId) {
             $('#cliente').val(data.credencialId);
             $('#servicio').val(data.servicioId);
             $('#estado').val(data.estadoCitaId);
+            $('#placaVehiculo').val(data.placaVehiculoId); // Cargar la placa del vehículo
             $('#descripcion').val(data.descripcion); // Si tienes un campo de descripción
         })
         .catch(error => console.error('Error:', error));
@@ -105,15 +108,4 @@ function deleteCita(citaId) {
         }
     })
     .catch(error => console.error('Error:', error));
-}
-
-// Limpiar el formulario de citas
-function clearFormCita() {
-    $('#citaId').val('');
-    $('#fecha').val('');
-    $('#hora').val('');
-    $('#cliente').val('');
-    $('#servicio').val('');
-    $('#estado').val('');
-    $('#descripcion').val(''); // Si tienes un campo de descripción
 }

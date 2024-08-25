@@ -8,7 +8,9 @@ package BusinessLogic;
 import BusinessLogicInterface.ICitaBL;
 import DataAccess.CitaDA;
 import DataAccessInterface.ICitaDA;
+import Entities.CitaAdminDTO;
 import Entities.CitaDTO;
+import Entities.DiagnosticoDTO;
 import java.util.List;
 
 /**
@@ -39,18 +41,24 @@ public class CitaBL implements ICitaBL {
     }
 
     @Override
+    public boolean eliminarCita(int idCita) {
+        return citaDA.eliminarCita(idCita); // Llamar al método en CitaDA
+    }
+
+    @Override
     public List<CitaDTO> listarCitas() {
         return citaDA.listarCitas();
     }
 
     @Override
-    public CitaDTO obtenerCitaPorId(int idCita) {
+    public CitaAdminDTO obtenerCitaPorId(int idCita) {
         return citaDA.obtenerCitaPorId(idCita);
     }
 
+    
     @Override
-    public void agregarDiagnostico(int idCita, String diagnostico) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean agregarDiagnostico(DiagnosticoDTO Request) {
+           return citaDA.agregarDiagnostico( Request);
     }
 
     
