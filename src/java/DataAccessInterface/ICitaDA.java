@@ -4,7 +4,9 @@
  */
 package DataAccessInterface;
 
+import Entities.CitaAdminDTO;
 import Entities.CitaDTO;
+import Entities.DiagnosticoDTO;
 import java.util.List;
 
 /**
@@ -22,5 +24,7 @@ public interface ICitaDA {
     
     List<CitaDTO> listarCitas();
     
-    CitaDTO obtenerCitaPorId(int idCita);
+    CitaAdminDTO obtenerCitaPorId(int idCita);
+    boolean eliminarCita(int idCita);
+    boolean agregarDiagnostico(DiagnosticoDTO Request);
 }

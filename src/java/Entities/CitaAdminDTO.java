@@ -4,36 +4,40 @@
  */
 package Entities;
 
-import java.sql.Date;
+/**
+ *
+ * @author Alfon
+ */
+import java.util.Date; // Importar java.util.Date
 
 /**
- * AR-003
- * @Author: Horacio Porras Marín
- * Clase Objeto encargado de obtener las citas
+ *
+ * @author: Horacio Porras
  */
-public class CitaDTO {
+public class CitaAdminDTO {
 
     private int CitaId;
     private String CredencialId;
     private String PlacaVehiculoId;
     private String VIN;
-    private int ServicioId;
+    private String ServicioId;
+    private String EstadoCitaId;
+    private Date FechaAgendada; // Cambiado a java.util.Date
     private String Descripcion;
-    private Date FechaAgendada;
     private String HoraAgendada;
     private String HoraFinalizacion;
+    private String vin;
 
     // Propiedades predeterminadas
-    private int EstadoCitaId = 1; // Valor predeterminado
     private String EditadoPor = "000000001"; // Valor predeterminado
     private int Habilitado = 1; // Valor predeterminado
-    private Date FechaCreacion = new Date(System.currentTimeMillis()); // Valor predeterminado
+    private Date FechaCreacion = new Date(); // Valor predeterminado
 
     // Constructor vacío
-    public CitaDTO() {}
-    
+    public CitaAdminDTO() {}
+
     // Constructor con parámetros
-    public CitaDTO(int CitaId, String CredencialId, String PlacaVehiculoId, String VIN, int ServicioId, int EstadoCitaId, Date FechaAgendada, String Descripcion, String HoraAgendada, String HoraFinalizacion) {
+    public CitaAdminDTO(int CitaId, String CredencialId, String PlacaVehiculoId, String VIN, String ServicioId, String EstadoCitaId, Date FechaAgendada, String Descripcion, String HoraAgendada, String HoraFinalizacion) {
         this.CitaId = CitaId;
         this.CredencialId = CredencialId;
         this.PlacaVehiculoId = PlacaVehiculoId;
@@ -79,19 +83,27 @@ public class CitaDTO {
         this.VIN = VIN;
     }
 
-    public int getServicioId() {
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    public String getServicioId() {
         return ServicioId;
     }
 
-    public void setServicioId(int ServicioId) {
+    public void setServicioId(String ServicioId) {
         this.ServicioId = ServicioId;
     }
 
-    public int getEstadoCitaId() {
+    public String getEstadoCitaId() {
         return EstadoCitaId;
     }
 
-    public void setEstadoCitaId(int EstadoCitaId) {
+    public void setEstadoCitaId(String EstadoCitaId) {
         this.EstadoCitaId = EstadoCitaId;
     }
 
@@ -151,9 +163,4 @@ public class CitaDTO {
     public void setFechaCreacion(Date FechaCreacion) {
         this.FechaCreacion = FechaCreacion;
     }
-
-    public void setDiagnostico(String diagnostico) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

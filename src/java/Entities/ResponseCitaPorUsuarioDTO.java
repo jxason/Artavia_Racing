@@ -18,7 +18,7 @@ public class ResponseCitaPorUsuarioDTO {
     private String HoraAgendada;
     
     // Propiedades predeterminadas
-    private String EstadoCita = "En Proceso"; // Valor predeterminado
+    private String EstadoCita ; // Valor predeterminado
 
     public ResponseCitaPorUsuarioDTO(int CodigoCita, String PlacaVehiculo, String NombreVehiculo, String NombreCategoria, String NombreServicio, String FechaAgendada, String HoraAgendada) {
         this.CodigoCita = CodigoCita;
