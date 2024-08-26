@@ -55,3 +55,4 @@ build/web/
 build/WEB-INF/
 build/classes/
 build/controller/
+/nbproject/private/

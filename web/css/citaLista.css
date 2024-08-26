@@ -1,0 +1,40 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 18 ago 2024, 4:14:50 p.m.
+    Author     : Horacio Porras
+*/
+
+.main-container {
+    margin-left: 20px;   /* Margen izquierdo */
+    margin-right: 20px;  /* Margen derecho */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+.actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: blue;
+}
+
+.actions a:hover {
+    text-decoration: underline;
+}
