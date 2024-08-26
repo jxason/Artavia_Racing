@@ -1,0 +1,105 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package Controller;
+
+import BusinessLogic.CategoriaServicioBL;
+import BusinessLogic.ServicioBL;
+import BusinessLogicInterface.ICategoriaServicioBL;
+import BusinessLogicInterface.IServicioBL;
+import Entities.CategoriaServicioDTO;
+import Entities.ServicioDTO;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * AR-003
+ * Author: Horacio Porras Marín
+ * Servlet para el manejo de categorias de servicios. 
+ * Este servlet gestiona las solicitudes GET para obtener datos de la categoria de servicios.
+ */
+@WebServlet(name = "CategoriaServicioController", urlPatterns = {"/CategoriaServicioController"})
+public class CategoriaServicioController extends HttpServlet {
+    
+    private static final long serialVersionUID = 1L;
+    private ICategoriaServicioBL categoriaServicioBL = new CategoriaServicioBL();
+    private IServicioBL servicioBL = new ServicioBL();
+
+    /**
+     * AR-003
+     * @Author Horacio Porras Marín
+     * Metodo encargado de ejecutar las acciones GET  
+     * @param request
+     * @param response   
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if ("getCategoriasServicio".equals(action)) {
+            List<CategoriaServicioDTO> categoriasServicio = categoriaServicioBL.GetAll();
+
+            // Configurar el tipo de contenido de la respuesta
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // Crear una instancia de Gson
+            Gson gson = new Gson();
+
+            // Convertir la lista de países a JSON
+            String jsonResponse = gson.toJson(categoriasServicio);
+
+            // Enviar la respuesta al cliente
+            response.getWriter().write(jsonResponse);
+            
+        } else if ("getServicios".equals(action)) {
+            // Obtener el parámetro 'codigoCategoriaServicio' de la solicitud
+            String codigoCategoriaServicioParam = request.getParameter("codigoCategoriaServicio");
+
+            // Verificar si 'codigoCategoriaServicio' no es nulo y no está vacío
+            if (codigoCategoriaServicioParam != null && !codigoCategoriaServicioParam.trim().isEmpty()) {
+                try {
+                    // Convertir el parámetro 'codigoCategoriaServicio' a entero
+                    int codigoCategoriaServicio = Integer.parseInt(codigoCategoriaServicioParam);
+
+                    // Obtener la lista de estados usando el Business Logic
+                    List<ServicioDTO> listServicios = servicioBL.GetBy(codigoCategoriaServicio);
+
+                    // Configurar el tipo de contenido de la respuesta
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+
+                    // Crear una instancia de Gson
+                    Gson gson = new Gson();
+
+                    // Convertir la lista de estados a JSON
+                    String jsonResponse = gson.toJson(listServicios);
+
+                    // Enviar la respuesta al cliente
+                    response.getWriter().write(jsonResponse);
+
+                } catch (NumberFormatException e) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de categoría no válido.");
+                }
+            } else {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Código de categoría no proporcionado o inválido.");
+            }
+        }
+    }
+    
+    @Override
+    public String getServletInfo() {
+        return "Servlet para procesar datos de categoria de servicios.";
+    }
+    
+}
