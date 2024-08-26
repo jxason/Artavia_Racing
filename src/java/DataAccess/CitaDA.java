@@ -80,8 +80,9 @@ public class CitaDA extends BaseConnectionDA implements ICitaDA {
     public boolean cancelarCita(int idCita) {
         try {
             connections = conectionDA.Get();
-            callableStatements = connections.prepareCall("{call USP_CANCELAR_CITA(?)}");
+            callableStatements = connections.prepareCall("{call USP_CANCELAR_CITA(?,?)}");
             callableStatements.setInt(1, idCita);
+            callableStatements.setString(2, "000000001");
             callableStatements.execute();
             return true;
         } catch (SQLException e) {

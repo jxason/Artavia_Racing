@@ -120,30 +120,42 @@ $(document).ready(function() {
         // El flujo de código no continuará más allá de este punto hasta recibir y procesar la respuesta
     });
 
+       $('#deleteCita').on('click', async function(event) {
+             event.preventDefault();  // Prevenir la recarga de la página al enviar el formulario
 
-    $('#deleteCita').on('click', function() {
-        if (confirm('¿Está seguro de que desea eliminar esta cita?')) {
-            $.ajax({
-                url: '/EditarCitaController',
-                method: 'POST',
-                data: {
-                    action: 'delete',
-                    citaId: $('#citaId').val()
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data.success) {
-                        toastr.success('Cita eliminada con éxito');
-                        window.location.href = 'citas.jsp';
-                    } else {
-                        toastr.error('Error al eliminar la cita');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error al eliminar la cita:', error);
-                    toastr.error('Error al eliminar la cita.');
-                }
-            });
-        }
-    });
+             // Obtener el ID de la cita de la URL
+             const urlParams = new URLSearchParams(window.location.search);
+             const citaUserId = urlParams.get('id');
+
+             const citaId = citaUserId;             
+
+             const formData = new FormData();        
+             formData.append('citaId', citaId);             
+
+             const url = '/Artavia_Racing/EditarCitaController?method=delete';
+
+             try {
+                 // Esperar a que la respuesta del servidor sea recibida y procesada
+                 const response = await fetch(url, {
+                     method: 'POST',
+                     body: formData
+                 });
+
+                 const data = await response.json();
+
+                 // Detener el flujo de ejecución hasta aquí
+                 if (data.success) {
+                     alert('Diagnóstico eliminado exitosamente.');
+                     window.location.href = 'citas.jsp';
+                 } else {
+                     alert('Error al eliminado el diagnóstico.');
+                 }
+             } catch (error) {
+                 console.error('Error:', error);
+                 alert('Error al intentar eliminado el diagnóstico.');
+             }
+
+             // El flujo de código no continuará más allá de este punto hasta recibir y procesar la respuesta
+         });
+   
 });

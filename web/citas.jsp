@@ -26,13 +26,17 @@
         <table id="citasTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
+                    <th>CitaID</th>
+                    <th>Fecha Agendada</th>
+                    <th>Hora Agendada</th>
+                    <th>Placa del Vehículo</th>
+                    <th>Detalle del Vehículo</th>
                     <th>Cliente</th>
+                    <th>Categoria Servicio</th>
                     <th>Servicio</th>
                     <th>Estado</th>
-                    <th>Placa del Vehículo</th> <!-- Nueva columna para la placa -->
+                    <th>Comentario Cliente</th> <!-- Nueva columna para la placa -->
+                    <th>Diagnostico</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -65,20 +69,30 @@
                             int citaId = rs.getInt("CITAID");
                             Date fechaAgendada = rs.getDate("FECHAAGENDADA");
                             String horaAgendada = rs.getString("HORAAGENDADA");
-                            String cliente = rs.getString("CREDENCIALID");
-                            String servicio = rs.getString("SERVICIOID");
-                            String estado = rs.getString("ESTADOCITAID");
                             String placaVehiculo = rs.getString("PLACAVEHICULOID"); // Nueva columna para la placa del vehículo
+                            String MarcaVehiculo = rs.getString("VEHICULO"); 
+                            String cliente = rs.getString("CLIENTE");
+                            String categoria = rs.getString("CATEGORIA");                            
+                            String servicio = rs.getString("SERVICIO");
+                            String estado = rs.getString("ESTADO");
+                            String problema = rs.getString("DESCRIPCION");
+                            String diagnostico = rs.getString("DIAGNOSTICO");
+                            
 
                             %>
                             <tr>
                                 <td><%= citaId %></td>
                                 <td><%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(fechaAgendada) %></td>
                                 <td><%= horaAgendada %></td>
+                                <td><%= placaVehiculo %></td> <!-- Mostrar la placa del vehículo -->
+                                <td><%= MarcaVehiculo %></td>
                                 <td><%= cliente %></td>
+                                <td><%= categoria %></td>
                                 <td><%= servicio %></td>
                                 <td><%= estado %></td>
-                                <td><%= placaVehiculo %></td> <!-- Mostrar la placa del vehículo -->
+                                <td><%= problema %></td>
+                                <td><%= diagnostico %></td>
+                                
                                 <td>
                                     <a href="editarcita.jsp?id=<%= citaId %>" class="btn btn-warning btn-sm">Editar</a>
                                     

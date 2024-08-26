@@ -53,6 +53,7 @@ public class CitaPorUsuarioDA extends BaseConnectionDA implements ICitaPorUsuari
                 dto.setNombreServicio(resultSets.getString("SERVICIO"));
                 dto.setFechaAgendada(resultSets.getString("FECHAAGENDADA"));
                 dto.setHoraAgendada(resultSets.getString("HORAAGENDADA"));
+                dto.setEstadoCita(resultSets.getString("ESTADOCITAID"));
                 lista.add(dto);
             }
         } catch (SQLException e) {

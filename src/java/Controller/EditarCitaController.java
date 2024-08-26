@@ -94,7 +94,7 @@ public class EditarCitaController extends HttpServlet {
         } else if ("delete".equals(action)) {
             try {
                 int citaId = Integer.parseInt(request.getParameter("citaId"));
-                boolean success = citaBL.eliminarCita(citaId);
+                boolean success = citaBL.cancelarCita(citaId);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
